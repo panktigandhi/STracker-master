@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_transaction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddTransaction">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/TASK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expense Description" />
+    <EditText
+        android:id="@+id/edittext_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/DATE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date" />
+    <EditText
+        android:id="@+id/edittext_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/AMOUNT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount" />
+    <EditText
+        android:id="@+id/edittext_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/CATEGORY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category" />
+    <EditText
+        android:id="@+id/edittext_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+    <Button
+        android:text="Buttonshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonshow" />
+    <!--<Button-->
+        <!--android:text="Buttonupdate"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/buttonupdate" />-->
+</LinearLayout>
