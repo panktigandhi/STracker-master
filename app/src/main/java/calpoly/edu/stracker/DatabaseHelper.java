@@ -16,7 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TASK = "TASK";
     public static final String DATE = "DATE";
     public static final String AMOUNT = "AMOUNT";
-    public static final String CATEGORY= "CATEGORY";
+    public static final String CATEGORY = "CATEGORY";
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
     }
@@ -35,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String Task, String Date, String Amount, String Category ) {
+    public boolean insertData(String Task, String Date, String Amount, String Category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TASK, Task);
@@ -48,10 +49,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public Cursor getAllData()
-    {
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res=db.rawQuery("select * from " + TABLE_NAME,null);
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
         return res;
 
     }
@@ -63,6 +63,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
         contentValues.put(CATEGORY, Category);
-        db.update(TABLE_NAME,contentValues,"TASK = ?" ,new String[] { Task});
+        db.update(TABLE_NAME, contentValues, "TASK = ?", new String[]{Task});
         return true;
-}}
+    }
+
+    public Integer deleteData(String Task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME,"TASK = ?", new String[]{Task});
+    }
+
+}

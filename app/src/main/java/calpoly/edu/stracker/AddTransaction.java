@@ -24,7 +24,7 @@ public class AddTransaction extends AppCompatActivity {
     DatabaseHelper mydb;
     Toolbar toolbar;
     EditText edittask, editcategory,editdate,editamount;
-    Button button,buttonshow,buttonupdate;
+    Button buttonshow,buttonupdate,buttondelete;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
     @Override
@@ -40,12 +40,13 @@ public class AddTransaction extends AppCompatActivity {
 
         buttonshow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
+        buttondelete = (Button) findViewById(R.id.buttondelete);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         findViewsById();
         setDateTimeField();
-        addData();
         viewAllData();
         //UpdateData();
+        deleteData();
     }
     private void findViewsById() {
         editdate = (EditText) findViewById(R.id.edittext_date);
@@ -121,7 +122,21 @@ public class AddTransaction extends AppCompatActivity {
         });
 
     }
+public void deleteData()
+{
+    buttondelete.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Integer deletedRows=mydb.deleteData(edittask.getText().toString());
+            if(deletedRows>0)
 
+                Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
+                else
+                Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
+
+        }
+    });
+}
     public void showMessage(String title, String message)
     {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
