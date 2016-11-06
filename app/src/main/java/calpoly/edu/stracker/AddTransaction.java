@@ -155,7 +155,7 @@ public void deleteData()
 
         int id = item.getItemId();
 
-        if (id == R.id.menu_share) {
+        if (id == R.id.menu_add) {
            addData();
         }
 
