@@ -29,8 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(" create table " + TABLE_EXPENSE+ " ( TASK TEXT, DATE TEXT,AMOUNT INTEGER, CATEGORY TEXT ) ");
-            db.execSQL(" create table " + TABLE_CATEGORY+ " ( IMAGE TEXT, CATEGORYNAME TEXT ) ");
+            db.execSQL(" create table " + TABLE_EXPENSE + " ( TASK TEXT, DATE TEXT,AMOUNT INTEGER, CATEGORY TEXT ) ");
+            db.execSQL(" create table " + TABLE_CATEGORY + " ( IMAGE TEXT, CATEGORYNAME TEXT ) ");
         } catch (Exception e) {
         }
     }
@@ -55,6 +55,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
+    public boolean insertCategory(String Image, String Category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(IMAGE, Image);
+        contentValues.put(CATEGORYNAME, Category);
+
+        long result = db.insert(TABLE_CATEGORY, null, contentValues);
+        if (result == -1) return false;
+        else return true;
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_EXPENSE, null);
@@ -75,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Integer deleteData(String Task) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_EXPENSE,"TASK = ?", new String[]{Task});
+        return db.delete(TABLE_EXPENSE, "TASK = ?", new String[]{Task});
     }
 
 }
