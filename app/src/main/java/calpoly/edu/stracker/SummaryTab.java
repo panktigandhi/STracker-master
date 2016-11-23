@@ -6,6 +6,7 @@ package calpoly.edu.stracker;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ public class SummaryTab extends Fragment {
     EditText beginDate, endDate;
     Calendar beginCalendar, endCalendar;
     ImageButton FAB;
+    DatabaseHelper mydb;
 
     DatePickerDialog.OnDateSetListener beginDatePicker = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -47,8 +50,8 @@ public class SummaryTab extends Fragment {
     };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.summary_tab,container,false);
-
+        View v = inflater.inflate(R.layout.summary_tab, container, false);
+        mydb = new DatabaseHelper(getActivity());
         beginDate = (EditText) v.findViewById(R.id.summary_begin_date);
         endDate = (EditText) v.findViewById(R.id.summary_end_date);
 
@@ -75,7 +78,10 @@ public class SummaryTab extends Fragment {
                         endCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
+//        TextView tv = (TextView) v.findViewById(R.id.textView5);
+//        Cursor c=mydb.getTotalExpense();
+//        int total=c.getInt(c.getColumnIndex("TotalExpense"));
+//        tv.setText(total);
         FAB = (ImageButton) v.findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -23,16 +24,41 @@ public class AddTransaction extends AppCompatActivity {
 
     DatabaseHelper mydb;
     Toolbar toolbar;
-    EditText edittask, editcategory,editdate,editamount;
-    Button buttonshow,buttonupdate,buttondelete;
+    EditText edittask, editcategory, editdate, editamount;
+    Button buttonshow, buttonupdate, buttondelete;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
+    private RadioGroup radioGroup1;
+    int flag = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
 
         mydb = new DatabaseHelper(this);
+
+        radioGroup1 = (RadioGroup) findViewById(R.id.radioGroup1);
+
+        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioExpense:
+                        flag = 1;
+                        //Toast.makeText(getApplicationContext(), "Expense RadioButton checked", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.radioIncome:
+                        flag = 2;
+                        // Toast.makeText(getApplicationContext(), "Income RadioButton checked", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
+
         edittask = (EditText) findViewById(R.id.edittext_task);
 
         editamount = (EditText) findViewById(R.id.edittext_amount);
@@ -48,11 +74,13 @@ public class AddTransaction extends AppCompatActivity {
         //UpdateData();
         deleteData();
     }
+
     private void findViewsById() {
         editdate = (EditText) findViewById(R.id.edittext_date);
         editdate.setInputType(InputType.TYPE_NULL);
         editdate.requestFocus();
     }
+
     private void setDateTimeField() {
         editdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +98,9 @@ public class AddTransaction extends AppCompatActivity {
                 editdate.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
+
 
 //    public void UpdateData()
 //    {
@@ -89,74 +118,81 @@ public class AddTransaction extends AppCompatActivity {
 //            }
 //        });
 //    }
+
     public void addData() {
+        if (flag == 1) {
+            boolean isInserted = mydb.insertData(edittask.getText().toString(), editdate.getText().toString(), editamount.getText().toString(), editcategory.getText().toString());
+            if (isInserted == true)
+                Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
+        } else if (flag == 2) {
+            boolean isInsertedIncome = mydb.insertIncomeData(edittask.getText().toString(), editdate.getText().toString(), editamount.getText().toString(), editcategory.getText().toString());
+            if (isInsertedIncome == true)
+                Toast.makeText(getApplicationContext(), "Insert Income Success", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(getApplicationContext(), "Insert Income Fail", Toast.LENGTH_LONG).show();
+        }
+    }
 
-                boolean isInserted = mydb.insertData(edittask.getText().toString(), editdate.getText().toString(),editamount.getText().toString(),editcategory.getText().toString());
-                if (isInserted == true)
-                    Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-            }
-
-    public void viewAllData()
-    {
+    public void viewAllData() {
         buttonshow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor res= mydb.getAllData();
-                if(res.getCount()==0)
-                {
+                Cursor res = mydb.getAllData();
+                if (res.getCount() == 0) {
                     showMessage("Error", "Nothing found");
                     return;
                 }
-                StringBuffer buffer=new StringBuffer();
-                while(res.moveToNext())
-                {
-                    buffer.append("Task: " + res.getString(0)+"\n");
-                    buffer.append("Date: " + res.getString(1)+"\n");
-                    buffer.append("Amount: " + res.getString(2)+"\n");
-                    buffer.append("Category: " + res.getString(3)+"\n");
+                StringBuffer buffer = new StringBuffer();
+                while (res.moveToNext()) {
+                    buffer.append("Task: " + res.getString(0) + "\n");
+                    buffer.append("Date: " + res.getString(1) + "\n");
+                    buffer.append("Amount: " + res.getString(2) + "\n");
+                    buffer.append("Category: " + res.getString(3) + "\n");
                 }
-                showMessage("DATA" ,buffer.toString());
+                showMessage("DATA", buffer.toString());
             }
         });
 
     }
-public void deleteData()
-{
-    buttondelete.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Integer deletedRows=mydb.deleteData(edittask.getText().toString());
-            if(deletedRows>0)
 
-                Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
+    public void deleteData() {
+        buttondelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer deletedRows = mydb.deleteData(edittask.getText().toString());
+                if (deletedRows > 0)
+
+                    Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
                 else
-                Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
 
-        }
-    });
-}
-    public void showMessage(String title, String message)
-    {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            }
+        });
+    }
+
+    public void showMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
         if (id == R.id.menu_add) {
-           addData();
+            addData();
         }
 
         return super.onOptionsItemSelected(item);

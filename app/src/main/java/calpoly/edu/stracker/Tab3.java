@@ -8,16 +8,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class Tab3 extends Fragment {
-    ListView list;
+
     String[] web = {
             "Shopping",
             "Eating Out",
@@ -38,6 +44,7 @@ public class Tab3 extends Fragment {
     };
     ImageButton FAB1;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_3, container, false);
@@ -49,18 +56,19 @@ public class Tab3 extends Fragment {
                 startActivity(intent);
             }
         });
-//        CustomList adapter = new CustomList(MainActivity.this, web, imageId);
-//        list=(ListView) v.findViewById(R.id.list);
-//        list.setAdapter(adapter);
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        List<HashMap<String, String>> categoryList = new ArrayList<HashMap<String, String>>();
+//        for (int i = 0; i < web.length; i++) {
+//            HashMap<String, String> hm = new HashMap<String, String>();
+//            hm.put("txt", "Category : " + web[i]);
+//            hm.put("img", "Image : " + imageId[i]);
+//            categoryList.add(hm);
+//        }
+//        String[] from = {"txt", "img"};
 //
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//               // Toast.makeText(MainActivity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
+//        int[] to = {R.id.txt, R.id.txt, R.id.img};
+//        SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), categoryList, R.layout.list_single, from, to);
+//        ListView listView = (ListView) v.findViewById(R.id.list);
+//        listView.setAdapter(adapter);
         return v;
 
     }
