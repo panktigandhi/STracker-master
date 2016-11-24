@@ -71,6 +71,8 @@ public class AddTransaction extends AppCompatActivity {
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        editdate.setText(dateFormatter.format(newCalendar.getTime()));
+
     }
 
 //    public void UpdateData()

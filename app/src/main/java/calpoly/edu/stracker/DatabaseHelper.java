@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 /**
  * Created by panktigandhi on 10/22/16.
  */
@@ -13,6 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "stracker.db";
     public static final String TABLE_EXPENSE = "expenses";
+    public static final String ID = "ID";
     public static final String TASK = "TASK";
     public static final String DATE = "DATE";
     public static final String AMOUNT = "AMOUNT";
@@ -26,16 +29,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
     }
 
-    @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(" create table " + TABLE_EXPENSE + " ( TASK TEXT, DATE TEXT,AMOUNT INTEGER, CATEGORY TEXT ) ");
-            db.execSQL(" create table " + TABLE_CATEGORY + " ( IMAGE TEXT, CATEGORYNAME TEXT ) ");
+            db.execSQL(" create table " + TABLE_EXPENSE + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, TASK TEXT, DATE TEXT, AMOUNT INTEGER, CATEGORY TEXT ) ");
+            db.execSQL(" create table " + TABLE_CATEGORY + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, IMAGE TEXT, CATEGORYNAME TEXT ) ");
         } catch (Exception e) {
         }
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop Table if exists" + TABLE_EXPENSE);
         db.execSQL("Drop Table if exists" + TABLE_CATEGORY);
@@ -55,16 +56,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public boolean insertCategory(String Image, String Category) {
+    public boolean insertCategory(String image, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(IMAGE, Image);
-        contentValues.put(CATEGORYNAME, Category);
+        contentValues.put(IMAGE, image);
+        contentValues.put(CATEGORYNAME, category);
 
         long result = db.insert(TABLE_CATEGORY, null, contentValues);
         if (result == -1) return false;
         else return true;
     }
+
+
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -73,9 +76,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getDataDateRange(Date begin, Date end) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_EXPENSE +
+                " WHERE " + DATE + " >= " + begin +
+                " AND " + DATE + " <= " + end, null);
+
+        return res;
+    }
+
     public boolean updateData(String Task, String Date, String Amount, String Category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
         contentValues.put(TASK, Task);
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
