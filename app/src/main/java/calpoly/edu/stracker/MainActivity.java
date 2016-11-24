@@ -1,5 +1,6 @@
 package calpoly.edu.stracker;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[] = {"Spending", "Purchases", "Categories"};
     int Numboftabs = 3;
-    ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

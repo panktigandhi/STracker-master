@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In Tab 3"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+        <!--android:text="You Are In Tab 3"-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true" />-->
     <ImageButton
         android:layout_margin="15dp"
         android:layout_width="50dp"
@@ -21,9 +21,9 @@
         android:id="@+id/imageButton1"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <!--<ListView-->
+        <!--android:id="@+id/list"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 </RelativeLayout>
