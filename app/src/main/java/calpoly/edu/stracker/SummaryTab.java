@@ -95,13 +95,13 @@ public class SummaryTab extends Fragment {
     }
 
     private void updateBeginning() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         beginDate.setText(sdf.format(beginCalendar.getTime()));
     }
 
     private void updateEnding() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         endDate.setText(sdf.format(endCalendar.getTime()));
     }
