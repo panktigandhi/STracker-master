@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/transaction_recyclerview"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:layout_below="@+id/transaction_begin_date" />
 
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->

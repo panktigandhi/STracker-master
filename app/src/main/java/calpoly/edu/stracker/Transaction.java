@@ -11,8 +11,7 @@ public class Transaction {
     int amount;
     String category;
 
-    public int getId() {
-        return id;
+    public Transaction() {
     }
 
     public Transaction(String date, String title, int amount, String category) {
@@ -21,6 +20,12 @@ public class Transaction {
         this.amount = amount;
         this.category = category;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) { this.id = id; }
 
     public String getDate() {
         return date;

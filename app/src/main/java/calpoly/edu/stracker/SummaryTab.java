@@ -19,12 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class SummaryTab extends Fragment {
 
     EditText beginDate, endDate;
+    TextView incomeValue, expenseValue, totalValue;
     Calendar beginCalendar, endCalendar;
     ImageButton FAB;
     DatabaseHelper mydb;
@@ -51,11 +53,15 @@ public class SummaryTab extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.summary_tab, container, false);
-        mydb = new DatabaseHelper(getActivity());
+
         beginDate = (EditText) v.findViewById(R.id.summary_begin_date);
         endDate = (EditText) v.findViewById(R.id.summary_end_date);
+        incomeValue = (TextView) v.findViewById(R.id.summary_income_value);
+        expenseValue = (TextView) v.findViewById(R.id.summary_expense_value);
+        totalValue = (TextView) v.findViewById(R.id.summary_totals_value);
 
         beginCalendar = Calendar.getInstance();
+        beginCalendar.add(Calendar.MONTH, -1);
         updateBeginning();
         beginDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -68,7 +74,6 @@ public class SummaryTab extends Fragment {
         });
 
         endCalendar = Calendar.getInstance();
-        endCalendar.add(Calendar.MONTH, -1);
         updateEnding();
         endDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -78,10 +83,7 @@ public class SummaryTab extends Fragment {
                         endCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-//        TextView tv = (TextView) v.findViewById(R.id.textView5);
-//        Cursor c=mydb.getTotalExpense();
-//        int total=c.getInt(c.getColumnIndex("TotalExpense"));
-//        tv.setText(total);
+
         FAB = (ImageButton) v.findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +92,8 @@ public class SummaryTab extends Fragment {
                 startActivity(intent);
             }
         });
+
+        setTotals();
 
         return v;
     }
@@ -106,5 +110,24 @@ public class SummaryTab extends Fragment {
         endDate.setText(sdf.format(endCalendar.getTime()));
     }
 
+    private void setTotals() {
+        TransactionManager.transactionManagerInit(getContext());
+        ArrayList<Transaction> mList = TransactionManager.getTransactions(beginDate.getText().toString(), endDate.getText().toString());
+        int income = 0;
+        int expenses = 0;
+
+        for (Transaction curTrans : mList) {
+            if (curTrans.amount < 0) {
+                expenses += curTrans.amount;
+            } else {
+                income += curTrans.amount;
+            }
+        }
+
+        incomeValue.setText("" + income);
+        expenseValue.setText("" + expenses);
+        totalValue.setText("" + (income + expenses));
+
+    }
 
 }

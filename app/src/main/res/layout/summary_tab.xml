@@ -51,43 +51,44 @@
         android:id="@+id/summary_income_text" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/summary_income_text"
-        android:layout_toEndOf="@+id/summary_income_text"
-        android:id="@+id/textView3" />
-
-    <TextView
         android:text="Total Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/summary_income_text"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView4" />
+        android:id="@+id/summary_expense_text" />
+
 
     <TextView
-        android:text="TextView"
+        android:text="Sum Result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_income_text"
-        android:layout_toEndOf="@+id/textView4"
-        android:id="@+id/textView5" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/summary_expense_text"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView6" />
+        android:id="@+id/summary_totals_text" />
 
     <TextView
-        android:text="TextView"
+        android:text="Income Value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:layout_toEndOf="@+id/textView6"
-        android:id="@+id/textView7" />
+        android:id="@+id/summary_income_value"
+        android:layout_below="@+id/summary_begin_date"
+        android:layout_toEndOf="@+id/summary_begin_date" />
+
+    <TextView
+        android:text="Expenses Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summary_expense_value"
+        android:layout_below="@+id/summary_income_value"
+        android:layout_alignStart="@+id/summary_income_value" />
+
+    <TextView
+        android:text="Totals Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summary_totals_value"
+        android:layout_below="@+id/summary_expense_value"
+        android:layout_alignStart="@+id/summary_expense_value" />
 
 </RelativeLayout>

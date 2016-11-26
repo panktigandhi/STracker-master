@@ -76,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getDataDateRange(Date begin, Date end) {
+    public Cursor getDataDateRange(String begin, String end) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_EXPENSE +
                 " WHERE " + DATE + " >= " + begin +
