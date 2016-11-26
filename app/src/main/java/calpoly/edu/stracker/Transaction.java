@@ -59,5 +59,12 @@ public class Transaction {
         this.category = category;
     }
 
+    public String toString() {
+        return "ID\t" + id +
+                "\nDate\t" + date +
+                "\nTitle\t" + title +
+                "\nAmount\t" + amount +
+                "\nCategory\t" + category;
+    }
 
 }

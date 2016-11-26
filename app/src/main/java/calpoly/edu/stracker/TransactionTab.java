@@ -35,7 +35,7 @@ public class TransactionTab extends Fragment {
             beginCalendar.set(Calendar.YEAR, year);
             beginCalendar.set(Calendar.MONTH, monthOfYear);
             beginCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateBeginning();
+            beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
         }
     };
 
@@ -45,7 +45,7 @@ public class TransactionTab extends Fragment {
             endCalendar.set(Calendar.YEAR, year);
             endCalendar.set(Calendar.MONTH, monthOfYear);
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateEnding();
+            endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
         }
     };
 
@@ -58,7 +58,7 @@ public class TransactionTab extends Fragment {
 
         beginCalendar = Calendar.getInstance();
         beginCalendar.add(Calendar.MONTH, -1);
-        updateBeginning();
+        beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
         beginDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new DatePickerDialog(getContext(), beginDatePicker,
@@ -70,7 +70,7 @@ public class TransactionTab extends Fragment {
         });
 
         endCalendar = Calendar.getInstance();
-        updateEnding();
+        endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
         endDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new DatePickerDialog(getContext(), endDatePicker,
@@ -90,16 +90,4 @@ public class TransactionTab extends Fragment {
         return v;
     }
 
-
-    private void updateBeginning() {
-        String myFormat = "dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        beginDate.setText(sdf.format(beginCalendar.getTime()));
-    }
-
-    private void updateEnding() {
-        String myFormat = "dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        endDate.setText(sdf.format(endCalendar.getTime()));
-    }
 }

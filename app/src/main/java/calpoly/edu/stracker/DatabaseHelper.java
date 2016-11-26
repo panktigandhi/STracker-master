@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by panktigandhi on 10/22/16.
@@ -102,4 +105,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_EXPENSE, "TASK = ?", new String[]{Task});
     }
 
+    public static String convertSqlDate(Calendar calendar) {
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+        return sdf.format(calendar.getTime());
+    }
+
+    public static String convertHumanDate(Calendar calendar) {
+        String format = "dd-MM-yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+        return sdf.format(calendar.getTime());
+    }
 }

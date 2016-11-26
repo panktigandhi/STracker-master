@@ -37,7 +37,7 @@ public class SummaryTab extends Fragment {
             beginCalendar.set(Calendar.YEAR, year);
             beginCalendar.set(Calendar.MONTH, monthOfYear);
             beginCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateBeginning();
+            beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
         }
     };
 
@@ -47,7 +47,7 @@ public class SummaryTab extends Fragment {
             endCalendar.set(Calendar.YEAR, year);
             endCalendar.set(Calendar.MONTH, monthOfYear);
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateEnding();
+            endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
         }
     };
 
@@ -62,7 +62,7 @@ public class SummaryTab extends Fragment {
 
         beginCalendar = Calendar.getInstance();
         beginCalendar.add(Calendar.MONTH, -1);
-        updateBeginning();
+        beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
         beginDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new DatePickerDialog(getContext(), beginDatePicker,
@@ -74,7 +74,7 @@ public class SummaryTab extends Fragment {
         });
 
         endCalendar = Calendar.getInstance();
-        updateEnding();
+        endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
         endDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new DatePickerDialog(getContext(), endDatePicker,
@@ -98,18 +98,6 @@ public class SummaryTab extends Fragment {
         return v;
     }
 
-    private void updateBeginning() {
-        String myFormat = "dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        beginDate.setText(sdf.format(beginCalendar.getTime()));
-    }
-
-    private void updateEnding() {
-        String myFormat = "dd-MM-yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        endDate.setText(sdf.format(endCalendar.getTime()));
-    }
-
     private void setTotals() {
         TransactionManager.transactionManagerInit(getContext());
         ArrayList<Transaction> mList = TransactionManager.getTransactions(beginDate.getText().toString(), endDate.getText().toString());
@@ -117,6 +105,7 @@ public class SummaryTab extends Fragment {
         int expenses = 0;
 
         for (Transaction curTrans : mList) {
+            System.out.println(curTrans);
             if (curTrans.amount < 0) {
                 expenses += curTrans.amount;
             } else {
