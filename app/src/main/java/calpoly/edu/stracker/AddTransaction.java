@@ -60,7 +60,7 @@ public class AddTransaction extends AppCompatActivity {
                 }
             }
         });
-        edittask = (EditText) findViewById(R.id.edittext_task);
+        editTask = (EditText) findViewById(R.id.edittext_task);
 
         editAmount = (EditText) findViewById(R.id.edittext_amount);
         editCategory = (EditText) findViewById(R.id.edittext_category);
@@ -147,7 +147,7 @@ public class AddTransaction extends AppCompatActivity {
                    }
           }
     public void viewAllData() {
-        buttonshow.setOnClickListener(new View.OnClickListener() {
+        buttonShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cursor res = mydb.getAllData();
