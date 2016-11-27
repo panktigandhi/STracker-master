@@ -6,6 +6,7 @@ package calpoly.edu.stracker;
 
 public class Transaction {
     int id;
+    boolean isIncome;
     String date;
     String title;
     int amount;
@@ -26,6 +27,10 @@ public class Transaction {
     }
 
     public void setId(int id) { this.id = id; }
+
+    public boolean getIsIncome() { return isIncome; }
+
+    public void setIsIncome(boolean income) { isIncome = income; }
 
     public String getDate() {
         return date;
@@ -61,6 +66,7 @@ public class Transaction {
 
     public String toString() {
         return "ID\t" + id +
+                "\nIsIncome\t" + isIncome +
                 "\nDate\t" + date +
                 "\nTitle\t" + title +
                 "\nAmount\t" + amount +

@@ -84,7 +84,8 @@ public class TransactionTab extends Fragment {
 
         transactionRecyclerView = (RecyclerView) v.findViewById(R.id.transaction_recyclerview);
         transactionRecyclerView.setLayoutManager((new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false)));
-        transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(beginDate.getText().toString(), endDate.getText().toString()), getContext());
+        transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
+                beginDate.getText().toString(), endDate.getText().toString(), true), getContext());
         transactionRecyclerView.setAdapter(transactionAdapter);
 
         return v;

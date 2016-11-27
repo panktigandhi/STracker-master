@@ -6,7 +6,6 @@ package calpoly.edu.stracker;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,12 +15,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class SummaryTab extends Fragment {
 
@@ -29,7 +25,6 @@ public class SummaryTab extends Fragment {
     TextView incomeValue, expenseValue, totalValue;
     Calendar beginCalendar, endCalendar;
     ImageButton FAB;
-    DatabaseHelper mydb;
 
     DatePickerDialog.OnDateSetListener beginDatePicker = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -38,6 +33,7 @@ public class SummaryTab extends Fragment {
             beginCalendar.set(Calendar.MONTH, monthOfYear);
             beginCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
+            setTotals();
         }
     };
 
@@ -48,6 +44,7 @@ public class SummaryTab extends Fragment {
             endCalendar.set(Calendar.MONTH, monthOfYear);
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
+            setTotals();
         }
     };
 
@@ -100,22 +97,29 @@ public class SummaryTab extends Fragment {
 
     private void setTotals() {
         TransactionManager.transactionManagerInit(getContext());
-        ArrayList<Transaction> mList = TransactionManager.getTransactions(beginDate.getText().toString(), endDate.getText().toString());
+        ArrayList<Transaction> incomeList = TransactionManager.getTransactions(
+                DatabaseHelper.convertSqlDate(beginCalendar),
+                DatabaseHelper.convertSqlDate(endCalendar),
+                true);
+
+        ArrayList<Transaction> expenseList = TransactionManager.getTransactions(
+                DatabaseHelper.convertSqlDate(beginCalendar),
+                DatabaseHelper.convertSqlDate(endCalendar),
+                false);
+
         int income = 0;
         int expenses = 0;
 
-        for (Transaction curTrans : mList) {
-            System.out.println(curTrans);
-            if (curTrans.amount < 0) {
-                expenses += curTrans.amount;
-            } else {
-                income += curTrans.amount;
-            }
+        for (Transaction curTrans : incomeList) {
+            income += curTrans.amount;
+        }
+        for (Transaction curTrans : expenseList) {
+            expenses += curTrans.amount;
         }
 
         incomeValue.setText("" + income);
         expenseValue.setText("" + expenses);
-        totalValue.setText("" + (income + expenses));
+        totalValue.setText("" + (income - expenses));
 
     }
 

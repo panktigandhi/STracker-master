@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -86,11 +85,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getDataDateRange(String begin, String end) {
+    public Cursor getExpenseDateRange(String begin, String end) {
         SQLiteDatabase db = this.getWritableDatabase();
+
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_EXPENSE +
-                " WHERE " + DATE + " >= " + begin +
-                " AND " + DATE + " <= " + end, null);
+                " WHERE " + DATE + " >= \"" + begin +
+                "\" AND " + DATE + " <= \"" + end + "\"", null);
+
+        return res;
+    }
+
+    public Cursor getIncomeDateRange(String begin, String end) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_INCOME +
+                " WHERE " + INCOMEDATE + " >= \"" + begin +
+                "\" AND " + INCOMEDATE + " <= \"" + end + "\"", null);
 
         return res;
     }

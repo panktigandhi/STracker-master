@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by makkabeus on 11/25/16.
@@ -12,7 +11,8 @@ import java.util.Date;
 
 public class TransactionManager {
 
-    static ArrayList<Transaction> transactions;
+    static ArrayList<Transaction> income;
+    static ArrayList<Transaction> expense;
     static DatabaseHelper db;
     static Context appInfo;
 
@@ -21,12 +21,13 @@ public class TransactionManager {
         db = new DatabaseHelper(appInfo);
     }
 
-    public static ArrayList<Transaction> getTransactions(String begin, String end) {
+    public static ArrayList<Transaction> getTransactions(String begin, String end, boolean isIncome) {
 
-        transactions = new ArrayList<Transaction>();
-        Cursor retrieval = db.getDataDateRange(begin, end);
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        Cursor retrieval = isIncome ? db.getIncomeDateRange(begin, end) : db.getExpenseDateRange(begin, end);
         Transaction temp;
 
+        System.out.println("Attempt Retrieval");
         if (retrieval.moveToFirst()) {
             while (!retrieval.isAfterLast()) {
                 temp = new Transaction();
@@ -36,13 +37,22 @@ public class TransactionManager {
                 temp.setAmount(retrieval.getInt(3));
                 temp.setCategory(retrieval.getString(4));
                 transactions.add(temp);
+                System.out.println(temp);
                 retrieval.moveToNext();
             }
         }
 
         retrieval.close();
+
+        if (isIncome) {
+            income = transactions;
+        } else {
+            expense = transactions;
+        }
+
         return transactions;
     }
+
 
 
 }
