@@ -23,8 +23,10 @@ public class AddTransaction extends AppCompatActivity {
 
     DatabaseHelper mydb;
     Toolbar toolbar;
-    EditText edittask, editcategory,editdate,editamount;
-    Button buttonshow,buttonupdate,buttondelete;
+    EditText editTask, editCategory, editDate, editAmount;
+    Button buttonShow,buttonupdate,buttondelete;
+    Calendar transactionCalendar;
+
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
     @Override
@@ -33,15 +35,16 @@ public class AddTransaction extends AppCompatActivity {
         setContentView(R.layout.activity_add_transaction);
 
         mydb = new DatabaseHelper(this);
-        edittask = (EditText) findViewById(R.id.edittext_task);
+        editTask = (EditText) findViewById(R.id.edittext_task);
 
-        editamount = (EditText) findViewById(R.id.edittext_amount);
-        editcategory = (EditText) findViewById(R.id.edittext_category);
+        editAmount = (EditText) findViewById(R.id.edittext_amount);
+        editCategory = (EditText) findViewById(R.id.edittext_category);
 
-        buttonshow = (Button) findViewById(R.id.buttonshow);
+        buttonShow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
         buttondelete = (Button) findViewById(R.id.buttondelete);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
         findViewsById();
         setDateTimeField();
         viewAllData();
@@ -49,30 +52,29 @@ public class AddTransaction extends AppCompatActivity {
         deleteData();
     }
     private void findViewsById() {
-        editdate = (EditText) findViewById(R.id.edittext_date);
-        editdate.setInputType(InputType.TYPE_NULL);
-        editdate.requestFocus();
+        editDate = (EditText) findViewById(R.id.edittext_date);
+        editDate.setInputType(InputType.TYPE_NULL);
+        editDate.requestFocus();
     }
     private void setDateTimeField() {
-        editdate.setOnClickListener(new View.OnClickListener() {
-            @Override
+        editDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 fromDatePickerDialog.show();
             }
         });
 
-        Calendar newCalendar = Calendar.getInstance();
+        transactionCalendar = Calendar.getInstance();
+
         fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                editdate.setText(dateFormatter.format(newDate.getTime()));
+                transactionCalendar.set(year, monthOfYear, dayOfMonth);
+                editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
             }
+        },transactionCalendar.get(Calendar.YEAR),
+            transactionCalendar.get(Calendar.MONTH),
+            transactionCalendar.get(Calendar.DAY_OF_MONTH));
 
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-        editdate.setText(dateFormatter.format(newCalendar.getTime()));
-
+        editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
     }
 
 //    public void UpdateData()
@@ -80,7 +82,7 @@ public class AddTransaction extends AppCompatActivity {
 //        buttonupdate.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                boolean isUpdate = mydb.updateData(edittask.getText().toString(), editdate.getText().toString(),editamount.getText().toString(),editcategory.getText().toString());
+//                boolean isUpdate = mydb.updateData(edittask.getText().toString(), editDate.getText().toString(),editAmount.getText().toString(),editcategory.getText().toString());
 //                if(isUpdate==true)
 //                {
 //                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
@@ -91,9 +93,15 @@ public class AddTransaction extends AppCompatActivity {
 //            }
 //        });
 //    }
+
     public void addData() {
 
-                boolean isInserted = mydb.insertData(edittask.getText().toString(), editdate.getText().toString(),editamount.getText().toString(),editcategory.getText().toString());
+                boolean isInserted = mydb.insertData(
+                        editTask.getText().toString(),
+                        DatabaseHelper.convertSqlDate(transactionCalendar),
+                        editAmount.getText().toString(),
+                        editCategory.getText().toString());
+
                 if (isInserted == true)
                     Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
                 else
@@ -102,7 +110,7 @@ public class AddTransaction extends AppCompatActivity {
 
     public void viewAllData()
     {
-        buttonshow.setOnClickListener(new View.OnClickListener() {
+        buttonShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Cursor res= mydb.getAllData();
@@ -129,7 +137,7 @@ public void deleteData()
     buttondelete.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Integer deletedRows=mydb.deleteData(edittask.getText().toString());
+            Integer deletedRows=mydb.deleteData(editTask.getText().toString());
             if(deletedRows>0)
 
                 Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
@@ -154,13 +162,9 @@ public void deleteData()
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.menu_add) {
+        if (item.getItemId() == R.id.menu_add) {
            addData();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
