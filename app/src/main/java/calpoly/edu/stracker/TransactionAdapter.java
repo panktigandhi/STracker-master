@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-/**
+/**ArrayList
  * Created by makkabeus on 11/21/16.
  */
 

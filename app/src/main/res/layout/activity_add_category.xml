@@ -16,10 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image" />
-    <EditText
-        android:id="@+id/edittext_image"
+    <ImageView
+        android:id="@+id/imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <!--<EditText-->
+        <!--android:id="@+id/edittext_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 </LinearLayout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:orientation="horizontal"

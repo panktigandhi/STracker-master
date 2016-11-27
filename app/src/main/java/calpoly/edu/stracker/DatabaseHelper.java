@@ -28,6 +28,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CATEGORYNAME = "CATEGORYNAME";
     public static final String IMAGE = "IMAGE";
 
+    public static final String TABLE_INCOME = "income";
+    public static final String INCOMETASK = "INCOMETASK";
+    public static final String INCOMEDATE = "INCOMEDATE";
+    public static final String INCOMEAMOUNT = "INCOMEAMOUNT";
+    public static final String INCOMECATEGORY = "INCOMECATEGORY";
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
     }
@@ -36,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             db.execSQL(" create table " + TABLE_EXPENSE + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, TASK TEXT, DATE TEXT, AMOUNT INTEGER, CATEGORY TEXT ) ");
             db.execSQL(" create table " + TABLE_CATEGORY + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, IMAGE TEXT, CATEGORYNAME TEXT ) ");
+            db.execSQL(" create table " + TABLE_INCOME + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, INCOMETASK TEXT, INCOMEDATE TEXT, INCOMEAMOUNT INTEGER, INCOMECATEGORY TEXT ) ");
         } catch (Exception e) {
         }
     }
@@ -43,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop Table if exists" + TABLE_EXPENSE);
         db.execSQL("Drop Table if exists" + TABLE_CATEGORY);
+        db.execSQL("Drop Table if exists" + TABLE_INCOME);
         onCreate(db);
     }
 
@@ -71,7 +79,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_EXPENSE, null);
@@ -88,17 +95,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String Task, String Date, String Amount, String Category) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(TASK, Task);
-        contentValues.put(DATE, Date);
-        contentValues.put(AMOUNT, Amount);
-        contentValues.put(CATEGORY, Category);
-        db.update(TABLE_EXPENSE, contentValues, "TASK = ?", new String[]{Task});
-        return true;
-    }
 
     public Integer deleteData(String Task) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -115,5 +111,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String format = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
         return sdf.format(calendar.getTime());
+    }
+
+    public boolean insertIncomeData(String Task, String Date, String Amount, String Category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(INCOMETASK, Task);
+        contentValues.put(INCOMEDATE, Date);
+        contentValues.put(INCOMEAMOUNT, Amount);
+        contentValues.put(INCOMECATEGORY, Category);
+
+        long result = db.insert(TABLE_INCOME, null, contentValues);
+        if (result == -1) return false;
+        else return true;
     }
 }
