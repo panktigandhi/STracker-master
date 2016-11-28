@@ -28,24 +28,24 @@ import java.util.List;
 
 public class Tab3 extends Fragment {
 
-    String[] web = {
-            "Shopping",
-            "Eating Out",
-            "Travel",
-            "Entertainment",
-            "Fuel",
-            "General",
-            "Gifts"
-    };
-    Integer[] imageId = {
-            R.drawable.shopping,
-            R.drawable.eating_out,
-            R.drawable.travel,
-            R.drawable.entertainment,
-            R.drawable.fuel,
-            R.drawable.general,
-            R.drawable.gifts
-    };
+//    String[] web = {
+//            "Shopping",
+//            "Eating Out",
+//            "Travel",
+//            "Entertainment",
+//            "Fuel",
+//            "General",
+//            "Gifts"
+//    };
+//    Integer[] imageId = {
+//            R.drawable.shopping,
+//            R.drawable.eating_out,
+//            R.drawable.travel,
+//            R.drawable.entertainment,
+//            R.drawable.fuel,
+//            R.drawable.general,
+//            R.drawable.gifts
+//    };
     ImageButton FAB1;
     DatabaseHelper mydb;
     TextView tv;

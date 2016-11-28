@@ -16,7 +16,7 @@ public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
     EditText editimage;
     EditText editcategoryname;
-    ImageView imageView;
+   // ImageView imageView;
     final Context context = this;
     int imageposition;
     private Integer[] mThumbIds = {
