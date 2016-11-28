@@ -5,7 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -33,14 +37,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String INCOMEAMOUNT = "INCOMEAMOUNT";
     public static final String INCOMECATEGORY = "INCOMECATEGORY";
 
+    private Context curContext;
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
+        curContext = context;
     }
 
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(" create table " + TABLE_EXPENSE + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, TASK TEXT, DATE TEXT, AMOUNT INTEGER, CATEGORY TEXT ) ");
-            db.execSQL(" create table " + TABLE_CATEGORY + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, IMAGE TEXT, CATEGORYNAME TEXT ) ");
+            db.execSQL(" create table " + TABLE_CATEGORY + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, IMAGE BLOB, CATEGORYNAME TEXT ) ");
             db.execSQL(" create table " + TABLE_INCOME + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, INCOMETASK TEXT, INCOMEDATE TEXT, INCOMEAMOUNT INTEGER, INCOMECATEGORY TEXT ) ");
         } catch (Exception e) {
         }
@@ -66,7 +73,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public boolean insertCategory(String image, String category) {
+    public void initCategories() {
+        String[] web = {
+                "Shopping",
+                "Eating Out",
+                "Travel",
+                "Entertainment",
+                "Fuel",
+                "General",
+                "Gifts"
+        };
+        Integer[] imageId = {
+                R.drawable.shopping,
+                R.drawable.eating_out,
+                R.drawable.travel,
+                R.drawable.entertainment,
+                R.drawable.fuel,
+                R.drawable.general,
+                R.drawable.gifts
+        };
+
+        Drawable d;
+        Bitmap bitmap;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        for (int ndx = 0; ndx < web.length; ndx++) {
+            d = curContext.getResources().getDrawable(imageId[ndx], curContext.getTheme());
+            bitmap = ((BitmapDrawable)d).getBitmap();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            insertCategory(stream.toByteArray(), web[ndx]);
+        }
+    }
+
+    public boolean insertCategory(byte[] image, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(IMAGE, image);
@@ -82,7 +121,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + TABLE_CATEGORY, null);
         return res;
     }
-
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
