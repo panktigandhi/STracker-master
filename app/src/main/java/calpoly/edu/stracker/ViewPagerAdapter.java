@@ -35,8 +35,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
         else
         {
-            Tab3 tab3 = new Tab3();
-            return tab3;
+            CategoryTab categoryTab = new CategoryTab();
+            return categoryTab;
         }
 
 

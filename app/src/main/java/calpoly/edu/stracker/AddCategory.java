@@ -2,6 +2,7 @@ package calpoly.edu.stracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,11 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
     EditText editimage;
     EditText editcategoryname;
-   // ImageView imageView;
+    // ImageView imageView;
     final Context context = this;
     int imageposition;
     private Integer[] mThumbIds = {
@@ -61,15 +64,18 @@ public class AddCategory extends AppCompatActivity {
         super.onStart();
     }
 
-        public void addCategory() {
+    public void addCategory() {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        editimage.getDrawingCache().compress(Bitmap.CompressFormat.PNG, 100, stream);
 
-        boolean isInserted = mydb.insertCategory(editimage.getText().toString(), editcategoryname.getText().toString());
+        boolean isInserted = mydb.insertCategory(stream.toByteArray(), editcategoryname.getText().toString());
         if (isInserted == true)
             Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
         else
             Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-            finish();
+        finish();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
