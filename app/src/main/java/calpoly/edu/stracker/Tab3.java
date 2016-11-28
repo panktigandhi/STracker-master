@@ -5,6 +5,7 @@ package calpoly.edu.stracker;
  */
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,12 +47,15 @@ public class Tab3 extends Fragment {
             R.drawable.gifts
     };
     ImageButton FAB1;
-
+    DatabaseHelper mydb;
+    TextView tv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_3, container, false);
+        tv= (TextView) v.findViewById(R.id.textView);
         FAB1 = (ImageButton) v.findViewById(R.id.imageButton1);
+        mydb = new DatabaseHelper(getActivity());
         FAB1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +63,17 @@ public class Tab3 extends Fragment {
                 startActivity(intent);
             }
         });
+        Cursor res = mydb.getAllCategories();
+        if (res.getCount() == 0) {
+            Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+        }
+        StringBuffer buffer = new StringBuffer();
+
+        while (res.moveToNext()) {
+            buffer.append("Image: " + res.getString(1) + "\n");
+            buffer.append("Category: " + res.getString(2) + "\n");
+        }
+        tv.setText(buffer.toString());
 //        List<HashMap<String, String>> categoryList = new ArrayList<HashMap<String, String>>();
 //        for (int i = 0; i < web.length; i++) {
 //            HashMap<String, String> hm = new HashMap<String, String>();

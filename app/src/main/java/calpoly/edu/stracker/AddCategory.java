@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
-    //EditText editimage;
+    EditText editimage;
     EditText editcategoryname;
     ImageView imageView;
     final Context context = this;
@@ -28,51 +28,61 @@ public class AddCategory extends AppCompatActivity {
             R.drawable.general,
             R.drawable.gifts
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
         mydb = new DatabaseHelper(this);
-        //editimage = (EditText) findViewById(R.id.edittext_image);
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            imageposition = extras.getInt("image");
+//        }
+
+//        imageView = (ImageView) findViewById(R.id.imageview);
+//        imageView.setImageResource(mThumbIds[imageposition]);
+        editimage = (EditText) findViewById(R.id.edittext_image);
         //editimage.setInputType(InputType.TYPE_NULL);
-        imageView= (ImageView) findViewById(R.id.imageview);
 
 
         editcategoryname = (EditText) findViewById(R.id.edittext_categoryname);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GridviewImage.class);
-                startActivity(intent);
-            }
-        });
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            imageposition = extras.getInt("image");
-        }
-        imageView.setImageResource(mThumbIds[imageposition]);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, GridviewImage.class);
+//                startActivity(intent);
+//            }
+//        });
     }
-//    public void addCategory() {
-//
-//        boolean isInserted = mydb.insertCategory(editimage.getText().toString(), editcategoryname.getText().toString());
-//        if (isInserted == true)
-//            Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
-//        else
-//            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+        public void addCategory() {
+
+        boolean isInserted = mydb.insertCategory(editimage.getText().toString(), editcategoryname.getText().toString());
+        if (isInserted == true)
+            Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
+            finish();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
         if (id == R.id.menu_add) {
-//            addCategory();
+            addCategory();
         }
 
         return super.onOptionsItemSelected(item);

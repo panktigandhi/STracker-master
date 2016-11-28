@@ -77,12 +77,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
+    public Cursor getAllCategories() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_CATEGORY, null);
+        return res;
+    }
+
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_EXPENSE, null);
         return res;
-
     }
 
     public Cursor getExpenseDateRange(String begin, String end) {
