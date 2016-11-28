@@ -36,8 +36,8 @@ public class TransactionManager {
                 temp.setDate(retrieval.getString(2));
                 temp.setAmount(retrieval.getInt(3));
                 temp.setCategory(retrieval.getString(4));
+                temp.setIsIncome(isIncome);
                 transactions.add(temp);
-                System.out.println(temp);
                 retrieval.moveToNext();
             }
         }

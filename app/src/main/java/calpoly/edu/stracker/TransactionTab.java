@@ -15,10 +15,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class TransactionTab extends Fragment {
 
@@ -80,12 +77,15 @@ public class TransactionTab extends Fragment {
             }
         });
 
-        TransactionManager.transactionManagerInit(getContext());
-
         transactionRecyclerView = (RecyclerView) v.findViewById(R.id.transaction_recyclerview);
         transactionRecyclerView.setLayoutManager((new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false)));
+
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
-                beginDate.getText().toString(), endDate.getText().toString(), true), getContext());
+                DatabaseHelper.convertSqlDate(beginCalendar),
+                DatabaseHelper.convertSqlDate(endCalendar),
+                false) ,
+            getContext());
+
         transactionRecyclerView.setAdapter(transactionAdapter);
 
         return v;

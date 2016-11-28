@@ -25,11 +25,10 @@ public class AddTransaction extends AppCompatActivity {
     DatabaseHelper mydb;
     Toolbar toolbar;
     EditText editTask, editCategory, editDate, editAmount;
-    Button buttonShow,buttonupdate,buttondelete;
+    Button buttonShow, buttonupdate, buttondelete;
     Calendar transactionCalendar;
 
     private DatePickerDialog fromDatePickerDialog;
-    private SimpleDateFormat dateFormatter;
     private RadioGroup radioGroup1;
     int flag = 1;
 
@@ -68,7 +67,6 @@ public class AddTransaction extends AppCompatActivity {
         buttonShow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
         buttondelete = (Button) findViewById(R.id.buttondelete);
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         findViewsById();
         setDateTimeField();
@@ -97,9 +95,9 @@ public class AddTransaction extends AppCompatActivity {
                 transactionCalendar.set(year, monthOfYear, dayOfMonth);
                 editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
             }
-        },transactionCalendar.get(Calendar.YEAR),
-            transactionCalendar.get(Calendar.MONTH),
-            transactionCalendar.get(Calendar.DAY_OF_MONTH));
+        }, transactionCalendar.get(Calendar.YEAR),
+                transactionCalendar.get(Calendar.MONTH),
+                transactionCalendar.get(Calendar.DAY_OF_MONTH));
 
         editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
     }
@@ -122,30 +120,32 @@ public class AddTransaction extends AppCompatActivity {
 //    }
 
     public void addData() {
-                if (flag == 1) {
-                        boolean isInserted = mydb.insertData(
-                                editTask.getText().toString(),
-                                DatabaseHelper.convertSqlDate(transactionCalendar),
-                                editAmount.getText().toString(),
-                                editCategory.getText().toString());
+        if (flag == 1) {
+            boolean isInserted = mydb.insertData(
+                    editTask.getText().toString(),
+                    DatabaseHelper.convertSqlDate(transactionCalendar),
+                    editAmount.getText().toString(),
+                    editCategory.getText().toString());
 
-                        if (isInserted == true) {
-                            Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-                        }
-                 } else if (flag == 2) {
-                      boolean isInsertedIncome = mydb.insertIncomeData(
-                              editTask.getText().toString(),
-                              DatabaseHelper.convertSqlDate(transactionCalendar),
-                              editAmount.getText().toString(),
-                              editCategory.getText().toString());
-                       if (isInsertedIncome == true)
-                           Toast.makeText(getApplicationContext(), "Insert Income Success", Toast.LENGTH_LONG).show();
-                    else
-                      Toast.makeText(getApplicationContext(), "Insert Income Fail", Toast.LENGTH_LONG).show();
-                   }
-          }
+            if (isInserted == true) {
+                Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
+            }
+        } else if (flag == 2) {
+            boolean isInsertedIncome = mydb.insertIncomeData(
+                    editTask.getText().toString(),
+                    DatabaseHelper.convertSqlDate(transactionCalendar),
+                    editAmount.getText().toString(),
+                    editCategory.getText().toString());
+            if (isInsertedIncome == true) {
+                Toast.makeText(getApplicationContext(), "Insert Income Success", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Insert Income Fail", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     public void viewAllData() {
         buttonShow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,12 +167,13 @@ public class AddTransaction extends AppCompatActivity {
         });
 
     }
-public void deleteData() {
-    buttondelete.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Integer deletedRows=mydb.deleteData(editTask.getText().toString());
-            if(deletedRows > 0)
+
+    public void deleteData() {
+        buttondelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer deletedRows = mydb.deleteData(editTask.getText().toString());
+                if (deletedRows > 0)
 
                     Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
                 else
@@ -199,7 +200,7 @@ public void deleteData() {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add) {
-           addData();
+            addData();
         }
 
         return super.onOptionsItemSelected(item);

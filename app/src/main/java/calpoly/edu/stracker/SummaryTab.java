@@ -96,7 +96,7 @@ public class SummaryTab extends Fragment {
     }
 
     private void setTotals() {
-        TransactionManager.transactionManagerInit(getContext());
+
         ArrayList<Transaction> incomeList = TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
@@ -106,6 +106,10 @@ public class SummaryTab extends Fragment {
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
                 false);
+
+        System.out.println("GET SUMMARY");
+        System.out.println(incomeList);
+        System.out.println(expenseList);
 
         int income = 0;
         int expenses = 0;
