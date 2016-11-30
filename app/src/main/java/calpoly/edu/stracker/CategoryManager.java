@@ -15,6 +15,7 @@ public class CategoryManager {
 
     static DatabaseHelper db;
     static Context appInfo;
+    static ArrayList<Category> cList;
 
     public static void categoryManagerInit(Context appContext) {
         appInfo = appContext;
@@ -48,7 +49,23 @@ public class CategoryManager {
         }
 
         res.close();
+        cList = rtn;
         return rtn;
+    }
+
+    public static Category findCategory(String title) {
+
+        if (cList == null) {
+            getCategories();
+        }
+
+        for (Category cat : cList) {
+            if (cat.title.equals(title)) {
+                return cat;
+            }
+        }
+
+        return null;
 
     }
 
