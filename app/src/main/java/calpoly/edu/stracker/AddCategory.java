@@ -19,7 +19,7 @@ public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
     EditText editimage;
     EditText editcategoryname;
-    // ImageView imageView;
+    ImageView imageView;
     final Context context = this;
     int imageposition;
     private Integer[] mThumbIds = {
@@ -43,21 +43,21 @@ public class AddCategory extends AppCompatActivity {
 //            imageposition = extras.getInt("image");
 //        }
 
-//        imageView = (ImageView) findViewById(R.id.imageview);
-//        imageView.setImageResource(mThumbIds[imageposition]);
-        editimage = (EditText) findViewById(R.id.edittext_image);
+        imageView = (ImageView) findViewById(R.id.imageview);
+        //imageView.setImageResource(mThumbIds[imageposition]);
+        //  editimage = (EditText) findViewById(R.id.edittext_image);
         //editimage.setInputType(InputType.TYPE_NULL);
 
 
         editcategoryname = (EditText) findViewById(R.id.edittext_categoryname);
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, GridviewImage.class);
-//                startActivity(intent);
-//            }
-//        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GridviewImage.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
