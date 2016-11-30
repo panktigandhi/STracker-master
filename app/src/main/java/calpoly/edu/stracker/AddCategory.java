@@ -37,6 +37,7 @@ public class AddCategory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
         mydb = new DatabaseHelper(this);
+        getSupportActionBar().setTitle("Add Category");
 //        Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
 //            imageposition = extras.getInt("image");
