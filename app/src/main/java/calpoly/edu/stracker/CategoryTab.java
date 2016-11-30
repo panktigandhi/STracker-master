@@ -51,7 +51,6 @@ public class CategoryTab extends Fragment {
         categoryRecyclerView = (RecyclerView) v.findViewById(R.id.category_recyclerview);
         categoryRecyclerView.setLayoutManager((new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false)));
 
-        CategoryManager.categoryManagerInit(getContext());
         categoryAdapter = new CategoryAdapter(CategoryManager.getCategories(), getContext());
         categoryRecyclerView.setAdapter(categoryAdapter);
 
@@ -89,7 +88,7 @@ public class CategoryTab extends Fragment {
 //        String[] from = {"txt", "img"};
 //
 //        int[] to = {R.id.txt, R.id.txt, R.id.img};
-//        SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), categoryList, R.layout.list_single, from, to);
+//        SimpleAdapter adapter = new SimpleAdapter(getActivity().getBaseContext(), categoryList, R.layout.transaction_item, from, to);
 //        ListView listView = (ListView) v.findViewById(R.id.list);
 //        listView.setAdapter(adapter);
         return v;

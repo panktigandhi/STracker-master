@@ -10,6 +10,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -100,8 +102,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int ndx = 0; ndx < web.length; ndx++) {
             d = curContext.getResources().getDrawable(imageId[ndx], curContext.getTheme());
             bitmap = ((BitmapDrawable)d).getBitmap();
+            stream.reset();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             insertCategory(stream.toByteArray(), web[ndx]);
+
+        }
+
+        try {
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,6 +161,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Integer deleteData(String Task) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_EXPENSE, "TASK = ?", new String[]{Task});
+    }
+
+    public static String convertIntToDecimal(int myNumber) {
+        DecimalFormat format = new DecimalFormat("0.00");
+        return format.format(myNumber/100.0);
     }
 
     public static String convertSqlDate(Calendar calendar) {
