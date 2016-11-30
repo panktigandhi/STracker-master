@@ -36,6 +36,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:background="@drawable/custom_bg"
     android:weightSum="1">
 
     <ImageView

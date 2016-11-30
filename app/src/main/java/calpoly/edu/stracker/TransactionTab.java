@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,8 @@ public class TransactionTab extends Fragment {
 
         beginDate = (EditText) v.findViewById(R.id.transaction_begin_date);
         endDate = (EditText) v.findViewById(R.id.transaction_end_date);
-
+        beginDate.setInputType(InputType.TYPE_NULL);
+        endDate.setInputType(InputType.TYPE_NULL);
         beginCalendar = Calendar.getInstance();
         beginCalendar.add(Calendar.MONTH, -1);
         beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));

@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent">
-
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-        <!--android:text="You Are In Tab 1"-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
 
     <ImageButton
         android:layout_margin="15dp"
@@ -23,32 +15,51 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/linearlayout"
+    android:weightSum="2">
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="date"
-        android:ems="10"
+        android:clickable="true"
+        android:layout_weight="1"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:id="@+id/summary_begin_date" />
 
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="date"
-        android:ems="10"
+        android:clickable="true"
+        android:layout_weight="1"
         android:layout_alignParentEnd="true"
-        android:id="@+id/summary_end_date"
-        android:layout_toEndOf="@+id/summary_begin_date" />
+        android:id="@+id/summary_end_date" />
 
+</LinearLayout>
 
     <TextView
         android:text="Total Income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_begin_date"
+       android:layout_below="@id/linearlayout"
         android:layout_alignParentStart="true"
         android:id="@+id/summary_income_text" />
+
+    <TextView
+        android:text="Income Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summary_income_value"
+        android:gravity="center"
+        android:layout_below="@+id/linearlayout"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:text="Total Expense"
@@ -60,6 +71,15 @@
 
 
     <TextView
+        android:text="Expenses Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/summary_expense_value"
+        android:layout_below="@+id/summary_income_value"
+        android:layout_alignParentRight="true" />
+
+    <TextView
         android:text="Sum Result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,27 +88,12 @@
         android:id="@+id/summary_totals_text" />
 
     <TextView
-        android:text="Income Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summary_income_value"
-        android:layout_below="@+id/summary_begin_date"
-        android:layout_toEndOf="@+id/summary_begin_date" />
-
-    <TextView
-        android:text="Expenses Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summary_expense_value"
-        android:layout_below="@+id/summary_income_value"
-        android:layout_alignStart="@+id/summary_income_value" />
-
-    <TextView
         android:text="Totals Value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:id="@+id/summary_totals_value"
         android:layout_below="@+id/summary_expense_value"
-        android:layout_alignStart="@+id/summary_expense_value" />
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

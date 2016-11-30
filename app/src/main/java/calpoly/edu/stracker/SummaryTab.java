@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,8 @@ public class SummaryTab extends Fragment {
         incomeValue = (TextView) v.findViewById(R.id.summary_income_value);
         expenseValue = (TextView) v.findViewById(R.id.summary_expense_value);
         totalValue = (TextView) v.findViewById(R.id.summary_totals_value);
-
+        beginDate.setInputType(InputType.TYPE_NULL);
+        endDate.setInputType(InputType.TYPE_NULL);
         beginCalendar = Calendar.getInstance();
         beginCalendar.add(Calendar.MONTH, -1);
         beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));

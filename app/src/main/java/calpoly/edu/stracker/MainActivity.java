@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Spending Tracker");
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
 
 

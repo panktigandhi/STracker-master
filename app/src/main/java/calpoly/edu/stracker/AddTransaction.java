@@ -23,7 +23,6 @@ import java.util.Locale;
 public class AddTransaction extends AppCompatActivity {
 
     DatabaseHelper mydb;
-    Toolbar toolbar;
     EditText editTask, editCategory, editDate, editAmount;
     Button buttonShow, buttonupdate, buttondelete;
     Calendar transactionCalendar;
@@ -39,6 +38,7 @@ public class AddTransaction extends AppCompatActivity {
 
         mydb = new DatabaseHelper(this);
         editTask = (EditText) findViewById(R.id.edittext_task);
+        getSupportActionBar().setTitle("Add Transaction");
         radioGroup1 = (RadioGroup) findViewById(R.id.radioGroup1);
 
         radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -90,7 +90,7 @@ public class AddTransaction extends AppCompatActivity {
 
         transactionCalendar = Calendar.getInstance();
 
-        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        fromDatePickerDialog = new DatePickerDialog(this, R.style.MyDatePickerTheme, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 transactionCalendar.set(year, monthOfYear, dayOfMonth);
                 editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
