@@ -33,6 +33,8 @@ public class TransactionTab extends Fragment {
             beginCalendar.set(Calendar.MONTH, monthOfYear);
             beginCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
+            updateRange();
+            transactionAdapter.notifyDataSetChanged();
         }
     };
 
@@ -43,6 +45,8 @@ public class TransactionTab extends Fragment {
             endCalendar.set(Calendar.MONTH, monthOfYear);
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
+            updateRange();
+            transactionAdapter.notifyDataSetChanged();
         }
     };
 
@@ -89,6 +93,18 @@ public class TransactionTab extends Fragment {
         transactionRecyclerView.setAdapter(transactionAdapter);
 
         return v;
+    }
+
+    public void updateRange() {
+
+        transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
+                DatabaseHelper.convertSqlDate(beginCalendar),
+                DatabaseHelper.convertSqlDate(endCalendar),
+                false) ,
+                getContext());
+
+        transactionRecyclerView.setAdapter(transactionAdapter);
+
     }
 
 }
