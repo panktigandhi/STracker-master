@@ -23,7 +23,6 @@ public class CategoryManager {
 
     public static ArrayList<Category> getCategories() {
 
-//        db.initCategories();
         ArrayList<Category> rtn = new ArrayList<Category>();
         Cursor res = db.getAllCategories();
         Category temp;
@@ -41,6 +40,11 @@ public class CategoryManager {
                 rtn.add(temp);
                 res.moveToNext();
             }
+        }
+
+        if (rtn.size() == 0) {
+            db.initCategories();
+            return getCategories();
         }
 
         res.close();

@@ -25,21 +25,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     public int getItemViewType(int position) {
-        return R.layout.list_single;
+        return R.layout.transaction_item;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
     }
 
-    @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        System.out.println(position);
-        System.out.println(getItemCount());
         holder.bind(mList.get(position));
     }
 
-    @Override
     public int getItemCount() {
         return mList.size();
     }
@@ -49,19 +45,25 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         Transaction mTransaction;
         ImageView categoryImage;
         TextView itemTitle;
+        TextView amount;
+        TextView date;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            categoryImage = (ImageView) itemView.findViewById(R.id.list_single_category_icon);
-            itemTitle = (TextView) itemView.findViewById(R.id.list_single_item);
+            categoryImage = (ImageView) itemView.findViewById(R.id.transaction_item_category_icon);
+            itemTitle = (TextView) itemView.findViewById(R.id.transaction_item_title);
+            date = (TextView) itemView.findViewById(R.id.transaction_item_date);
+            amount = (TextView) itemView.findViewById(R.id.transaction_item_amount);
 
         }
 
         public void bind(Transaction e) {
             mTransaction = e;
             itemTitle.setText(mTransaction.getTitle());
+            amount.setText(DatabaseHelper.convertIntToDecimal(mTransaction.getAmount()));
+            date.setText(mTransaction.getDate());
         }
 
         public void onClick(View v) {

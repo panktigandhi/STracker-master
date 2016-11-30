@@ -48,7 +48,7 @@ public class Transaction {
         this.title = title;
     }
 
-    public float getAmount() {
+    public int getAmount() {
         return amount;
     }
 
