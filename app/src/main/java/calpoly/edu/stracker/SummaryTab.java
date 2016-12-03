@@ -6,9 +6,11 @@ package calpoly.edu.stracker;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +128,12 @@ public class SummaryTab extends Fragment {
         incomeValue.setText("" + income);
         expenseValue.setText("" + expenses);
         totalValue.setText("" + (income - expenses));
+        int diff = income - expenses;
+        if (diff < 0) {
+            totalValue.setTextColor( Color.parseColor("#AF002A"));
+        }
+        else
+            totalValue.setTextColor( Color.parseColor("#008000"));
 
     }
-
 }

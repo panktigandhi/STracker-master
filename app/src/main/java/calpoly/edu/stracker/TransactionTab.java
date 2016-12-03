@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +94,9 @@ public class TransactionTab extends Fragment {
             getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
-
+//        ItemTouchHelper.Callback callback = new SwipeHelper(transactionAdapter);
+//        ItemTouchHelper helper = new ItemTouchHelper(callback);
+//        helper.attachToRecyclerView(transactionRecyclerView);
         return v;
     }
 

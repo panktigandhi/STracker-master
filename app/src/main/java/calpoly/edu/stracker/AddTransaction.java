@@ -10,14 +10,18 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.RadioGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AddTransaction extends AppCompatActivity {
@@ -26,6 +30,8 @@ public class AddTransaction extends AppCompatActivity {
     EditText editTask, editCategory, editDate, editAmount;
     Button buttonShow, buttonupdate, buttondelete;
     Calendar transactionCalendar;
+    Spinner spinner;
+    String label;
 
     private DatePickerDialog fromDatePickerDialog;
     private RadioGroup radioGroup1;
@@ -59,15 +65,30 @@ public class AddTransaction extends AppCompatActivity {
                 }
             }
         });
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                label = parent.getItemAtPosition(position).toString();
+//
+//                Toast.makeText(parent.getContext(), "You selected: " + label,
+//                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         editTask = (EditText) findViewById(R.id.edittext_task);
 
         editAmount = (EditText) findViewById(R.id.edittext_amount);
-        editCategory = (EditText) findViewById(R.id.edittext_category);
+        // editCategory = (EditText) findViewById(R.id.edittext_category);
 
         buttonShow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
         buttondelete = (Button) findViewById(R.id.buttondelete);
-
+        loadSpinnerData();
         findViewsById();
         setDateTimeField();
         viewAllData();
@@ -125,7 +146,7 @@ public class AddTransaction extends AppCompatActivity {
                     editTask.getText().toString(),
                     DatabaseHelper.convertSqlDate(transactionCalendar),
                     editAmount.getText().toString(),
-                    editCategory.getText().toString());
+                    label);
 
             if (isInserted == true) {
                 Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
@@ -183,6 +204,14 @@ public class AddTransaction extends AppCompatActivity {
         });
     }
 
+    public void loadSpinnerData() {
+
+        List<String> categoryNames = mydb.getAllCategoryNames();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+    }
+
     public void showMessage(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -193,7 +222,7 @@ public class AddTransaction extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_add, menu);
         return true;
     }
 

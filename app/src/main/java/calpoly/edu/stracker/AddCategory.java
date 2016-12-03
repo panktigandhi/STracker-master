@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
-    EditText editimage;
+   // EditText editimage;
     EditText editcategoryname;
     ImageView imageView;
     final Context context = this;
@@ -66,15 +66,16 @@ public class AddCategory extends AppCompatActivity {
     }
 
     public void addCategory() {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        editimage.getDrawingCache().compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-        boolean isInserted = mydb.insertCategory(stream.toByteArray(), editcategoryname.getText().toString());
-        if (isInserted == true)
-            Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-        finish();
+//        CategoryManager.getCategories();
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        imageView.getDrawingCache().compress(Bitmap.CompressFormat.PNG, 100, stream);
+//
+//        boolean isInserted = mydb.insertCategory(stream.toByteArray(), editcategoryname.getText().toString());
+//        if (isInserted == true)
+//            Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
+//        else
+//            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
+//        finish();
     }
 
     @Override

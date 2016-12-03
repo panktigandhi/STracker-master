@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * Created by makkabeus on 11/21/16.
  */
 
+
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder>{
 
     Context curContext;
@@ -38,6 +39,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public int getItemCount() {
         return mList.size();
+    }
+    public void dismissItem(int pos) {
+        mList.remove(pos);
+        this.notifyItemRemoved(pos);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
