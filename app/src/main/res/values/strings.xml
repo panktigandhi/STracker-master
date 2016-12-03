@@ -2,4 +2,5 @@
     <string name="app_name">STracker</string>
     <string name="Share">Share</string>
     <string name="settings">Settings</string>
+    <string name="add">ADD</string>
 </resources>
