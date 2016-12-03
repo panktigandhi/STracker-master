@@ -94,9 +94,9 @@ public class TransactionTab extends Fragment {
             getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
-//        ItemTouchHelper.Callback callback = new SwipeHelper(transactionAdapter);
-//        ItemTouchHelper helper = new ItemTouchHelper(callback);
-//        helper.attachToRecyclerView(transactionRecyclerView);
+        ItemTouchHelper.Callback callback = new SwipeHelper(transactionAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(transactionRecyclerView);
         return v;
     }
 

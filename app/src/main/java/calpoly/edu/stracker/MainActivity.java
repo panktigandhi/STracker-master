@@ -59,17 +59,18 @@ public class MainActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
 
     }
-public String getShareData()
-{
-    //shareData="hello";
-shareData=mydb.getTransactionasString();
-    return shareData;
-}
+
+    public String getShareData() {
+        shareData = mydb.getTransactionasString();
+        return shareData;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
