@@ -1,6 +1,7 @@
 package calpoly.edu.stracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             itemTitle = (TextView) itemView.findViewById(R.id.transaction_item_title);
             date = (TextView) itemView.findViewById(R.id.transaction_item_date);
             amount = (TextView) itemView.findViewById(R.id.transaction_item_amount);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), EditActivity.class);
+                    i.putExtra("ItemTitle", itemTitle.getText().toString());
+                    i.putExtra("date", date.getText().toString());
+                    i.putExtra("amount", amount.getText().toString());
+                    v.getContext().startActivity(i);
+                }
+            });
         }
 
         public void bind(Transaction e) {

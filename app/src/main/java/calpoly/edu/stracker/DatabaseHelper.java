@@ -80,6 +80,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
+    public boolean updateData(String Task, String Date, String Amount, String Category) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK, Task);
+        contentValues.put(DATE, Date);
+        contentValues.put(AMOUNT, Amount);
+        contentValues.put(CATEGORY, Category);
+        db.update(TABLE_EXPENSE, contentValues, "TASK = ?", new String[]{Task});
+        return true;
+    }
+
+
     public void initCategories() {
         String[] web = {
                 "Shopping",
@@ -123,21 +135,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-public String getTransactionasString()
-{
-    String copy="";
-    SQLiteDatabase db = this.getWritableDatabase();
-    Cursor res = db.rawQuery("select " + TASK + "," + DATE + "," + AMOUNT + " from " + TABLE_EXPENSE, null);
-    if (res.moveToFirst()) {
-        do {
-            copy=copy + res.getString(0)+ "\t\t" + res.getString(1) + "\t\t" + "$" + res.getString(2) + "\n";
-        } while (res.moveToNext());
+    public String getTransactionasString() {
+        String copy = "";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select " + TASK + "," + DATE + "," + AMOUNT + " from " + TABLE_EXPENSE, null);
+        if (res.moveToFirst()) {
+            do {
+                copy = copy + res.getString(0) + "\t\t" + res.getString(1) + "\t\t" + "$" + res.getString(2) + "\n";
+            } while (res.moveToNext());
+        }
+        res.close();
+        db.close();
+        return copy;
     }
-    res.close();
-    db.close();
-    return copy;
 
-}
     public boolean insertCategory(byte[] image, String category, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -160,7 +171,7 @@ public String getTransactionasString()
     public List<String> getAllCategoryNames() {
         List<String> list = new ArrayList<String>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select " + CATEGORYNAME + " from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"expense\"" , null);
+        Cursor res = db.rawQuery("select " + CATEGORYNAME + " from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"expense\"", null);
         if (res.moveToFirst()) {
             do {
                 list.add(res.getString(0));
