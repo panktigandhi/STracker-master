@@ -61,19 +61,22 @@ public class TransactionTab extends Fragment {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.transaction_radio_group_radioAll) {
-                    mode = 0;
-                    updateRange();
-                } else if (checkedId == R.id.transaction_radio_group_radioIncome) {
-                    mode = 1;
-                    updateRange();
-                } else if (checkedId == R.id.transaction_radio_group_radioExpense) {
-                    mode = -1;
-                    updateRange();
-                } else {
-                    mode = 0;
-                    updateRange();
+                switch (checkedId) {
+                    case R.id.transaction_radio_group_radioAll:
+                        mode = 0;
+                        break;
+                    case R.id.transaction_radio_group_radioIncome:
+                        mode = 1;
+                        break;
+                    case R.id.transaction_radio_group_radioExpense:
+                        mode = -1;
+                        break;
+                    default:
+                        mode = 0;
+                        break;
                 }
+
+                updateRange();
             }
         });
 
