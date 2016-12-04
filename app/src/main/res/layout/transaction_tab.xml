@@ -6,7 +6,7 @@
     <!--android:padding="@dimen/activity_horizontal_margin"-->
 
     <RadioGroup
-        android:id="@+id/radioGroup1"
+        android:id="@+id/transaction_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -14,20 +14,20 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioExpense"
+            android:id="@+id/transaction_radio_group_radioAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rbtn_selector"
-            android:button="@null"
             android:checked="true"
+            android:button="@null"
             android:gravity="center"
             android:padding="5dp"
-            android:text="EXPENSE"
+            android:text="ALL"
             android:textColor="@drawable/rbtn_textcolor_selected" />
 
         <RadioButton
-            android:id="@+id/radioIncome"
+            android:id="@+id/transaction_radio_group_radioIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,6 +37,19 @@
             android:padding="5dp"
             android:text="INCOME"
             android:textColor="@drawable/rbtn_textcolor_selected" />
+
+        <RadioButton
+            android:id="@+id/transaction_radio_group_radioExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="EXPENSE"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+
     </RadioGroup>
     <LinearLayout
         android:layout_width="match_parent"

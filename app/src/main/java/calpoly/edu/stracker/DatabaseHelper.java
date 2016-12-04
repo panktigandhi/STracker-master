@@ -95,10 +95,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public ArrayList<Transaction> getTransactionDateRange(String begin, String end) {
-
-        System.out.println("create table " + TABLE_TRANSACTIONS + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, " + DATE + " TEXT, " + AMOUNT + " DECIMAL(6,2), " + CATEGORYID + " INTEGER ) ");
-        System.out.println("create table " + TABLE_CATEGORY + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + IMAGE + " BLOB, " + CATEGORYNAME + " TEXT, " + CATEGORYTYPE + " TEXT ) ");
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS +
                 " WHERE " + DATE + " >= \"" + begin +
@@ -132,7 +128,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         Transaction temp;
 
-        System.out.println("Attempt Retrieval");
         if (res.moveToFirst()) {
             while (!res.isAfterLast()) {
                 temp = new Transaction();
