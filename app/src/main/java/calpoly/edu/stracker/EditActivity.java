@@ -73,22 +73,22 @@ public class EditActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_done) {
-            updateTransaction();
+//            updateTransaction();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateTransaction() {
-        boolean isUpdate = mydb.updateData(editDescription.getText().toString(), editDate.getText().toString(), editAmount.getText().toString(), "fuel");
-        Log.d("editDescription", editDescription.getText().toString());
-        Log.d("editDate", editDate.getText().toString());
-        Log.d("editAmount", editAmount.getText().toString());
-
-        if (isUpdate == true) {
-            Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
-        } else
-            Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_LONG).show();
-        finish();
-    }
+//    public void updateTransaction() {
+//        boolean isUpdate = mydb.updateData(editDescription.getText().toString(), editDate.getText().toString(), editAmount.getText().toString(), "fuel");
+//        Log.d("editDescription", editDescription.getText().toString());
+//        Log.d("editDate", editDate.getText().toString());
+//        Log.d("editAmount", editAmount.getText().toString());
+//
+//        if (isUpdate == true) {
+//            Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
+//        } else
+//            Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_LONG).show();
+//        finish();
+//    }
 }

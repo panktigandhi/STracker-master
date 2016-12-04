@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import java.util.Calendar;
 
@@ -26,6 +27,7 @@ public class TransactionTab extends Fragment {
 
     EditText beginDate, endDate;
     Calendar beginCalendar, endCalendar;
+    int mode = 0;
 
 
     DatePickerDialog.OnDateSetListener beginDatePicker = new DatePickerDialog.OnDateSetListener() {
@@ -36,7 +38,6 @@ public class TransactionTab extends Fragment {
             beginCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
             updateRange();
-            transactionAdapter.notifyDataSetChanged();
         }
     };
 
@@ -48,7 +49,6 @@ public class TransactionTab extends Fragment {
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
             updateRange();
-            transactionAdapter.notifyDataSetChanged();
         }
     };
 
@@ -56,10 +56,32 @@ public class TransactionTab extends Fragment {
 
         View v = inflater.inflate(R.layout.transaction_tab,container,false);
 
+        RadioGroup transactionType = (RadioGroup) v.findViewById(R.id.transaction_radio_group);
+        transactionType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.transaction_radio_group_radioAll:
+                        mode = 0;
+                        break;
+                    case R.id.transaction_radio_group_radioIncome:
+                        mode = 1;
+                        break;
+                    case R.id.transaction_radio_group_radioExpense:
+                        mode = -1;
+                        break;
+                    default:
+                        mode = 0;
+                        break;
+                }
+
+                updateRange();
+            }
+        });
+
         beginDate = (EditText) v.findViewById(R.id.transaction_begin_date);
-        endDate = (EditText) v.findViewById(R.id.transaction_end_date);
         beginDate.setInputType(InputType.TYPE_NULL);
-        endDate.setInputType(InputType.TYPE_NULL);
         beginCalendar = Calendar.getInstance();
         beginCalendar.add(Calendar.MONTH, -1);
         beginDate.setText(DatabaseHelper.convertHumanDate(beginCalendar));
@@ -73,6 +95,9 @@ public class TransactionTab extends Fragment {
             }
         });
 
+
+        endDate = (EditText) v.findViewById(R.id.transaction_end_date);
+        endDate.setInputType(InputType.TYPE_NULL);
         endCalendar = Calendar.getInstance();
         endDate.setText(DatabaseHelper.convertHumanDate(endCalendar));
         endDate.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +115,7 @@ public class TransactionTab extends Fragment {
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
-                false) ,
+                mode) ,
             getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
@@ -105,10 +130,11 @@ public class TransactionTab extends Fragment {
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
-                false) ,
+                mode) ,
                 getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
+        transactionAdapter.notifyDataSetChanged();
 
     }
 

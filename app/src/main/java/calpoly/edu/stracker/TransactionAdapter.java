@@ -77,9 +77,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public void bind(Transaction e) {
             mTransaction = e;
             itemTitle.setText(mTransaction.getTitle());
-            amount.setText(DatabaseHelper.convertIntToDecimal(mTransaction.getAmount()));
+            amount.setText(DatabaseHelper.convertDoubleToHumanDecimal(mTransaction.getAmount()));
             date.setText(mTransaction.getDate());
-            categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getCategory()).icon);
+
+//            if (CategoryManager.findCategory(mTransaction.getCategory()).icon != null)
+//                categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getCategory()).icon);
+
         }
 
         public void onClick(View v) {
