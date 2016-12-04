@@ -24,39 +24,13 @@ public class CategoryManager {
 
     public static ArrayList<Category> getCategories() {
 
-        ArrayList<Category> rtn = new ArrayList<Category>();
-        Cursor res = db.getAllCategories();
-        Category temp;
-        byte[] byteArray;
-        Bitmap bmp;
-
-        if (res.moveToFirst()) {
-            while (!res.isAfterLast()) {
-                temp = new Category();
-                temp.id = res.getInt(0);
-                byteArray = res.getBlob(1);
-                bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                temp.icon = bmp;
-                temp.title = res.getString(2);
-                rtn.add(temp);
-                res.moveToNext();
-            }
-        }
-
-        if (rtn.size() == 0) {
-            db.initCategories();
-            return getCategories();
-        }
-
-        res.close();
-        cList = rtn;
-        return rtn;
+        return db.getCategories();
     }
 
     public static Category findCategory(String title) {
 
         if (cList == null) {
-            getCategories();
+            cList = getCategories();
         }
 
         for (Category cat : cList) {

@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,54 +16,49 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by panktigandhi on 10/22/16.
+ * Created by makkabeus on 12/3/16.
  */
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper{
+
+    private Context curContext;
+
     public static final String DB_NAME = "stracker.db";
-    public static final String TABLE_EXPENSE = "expenses";
+    public static final String TABLE_TRANSACTIONS = "AppTransaction";
     public static final String ID = "ID";
     public static final String TASK = "TASK";
     public static final String DATE = "DATE";
     public static final String AMOUNT = "AMOUNT";
-    public static final String CATEGORY = "CATEGORY";
+    public static final String CATEGORYID = "CATEGORYID";
 
-    public static final String TABLE_CATEGORY = "category";
+    public static final String TABLE_CATEGORY = "Category";
     public static final String CATEGORYNAME = "CATEGORYNAME";
     public static final String IMAGE = "IMAGE";
     public static final String CATEGORYTYPE = "CATEGORYTYPE";
-
-    public static final String TABLE_INCOME = "income";
-    public static final String INCOMETASK = "INCOMETASK";
-    public static final String INCOMEDATE = "INCOMEDATE";
-    public static final String INCOMEAMOUNT = "INCOMEAMOUNT";
-    public static final String INCOMECATEGORY = "INCOMECATEGORY";
-    String name = "Salary";
-    private Context curContext;
-    byte[] imageArray;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
         curContext = context;
     }
 
+    @Override
     public void onCreate(SQLiteDatabase db) {
+
         try {
-            db.execSQL(" create table " + TABLE_EXPENSE + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, TASK TEXT, DATE TEXT, AMOUNT INTEGER, CATEGORY TEXT ) ");
-            db.execSQL(" create table " + TABLE_CATEGORY + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, IMAGE BLOB, CATEGORYNAME TEXT, CATEGORYTYPE TEXT ) ");
-            db.execSQL(" create table " + TABLE_INCOME + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT, INCOMETASK TEXT, INCOMEDATE TEXT, INCOMEAMOUNT INTEGER, INCOMECATEGORY TEXT ) ");
+            db.execSQL(" create table " + TABLE_TRANSACTIONS + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, " + DATE + " TEXT, " + AMOUNT + " DECIMAL(6,2), " + CATEGORYID + " INTEGER ) ");
+            db.execSQL(" create table " + TABLE_CATEGORY + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + IMAGE + " BLOB, " + CATEGORYNAME + " TEXT, " + CATEGORYTYPE + " TEXT ) ");
         } catch (Exception e) {
+            System.out.println("PLS WORK");
         }
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("Drop Table if exists" + TABLE_EXPENSE);
+        db.execSQL("Drop Table if exists" + TABLE_TRANSACTIONS);
         db.execSQL("Drop Table if exists" + TABLE_CATEGORY);
-        db.execSQL("Drop Table if exists" + TABLE_INCOME);
         onCreate(db);
     }
 
@@ -73,22 +68,85 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TASK, Task);
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
-        contentValues.put(CATEGORY, Category);
+        contentValues.put(CATEGORYID, Category);
 
-        long result = db.insert(TABLE_EXPENSE, null, contentValues);
-        if (result == -1) return false;
-        else return true;
+        long result = db.insert(TABLE_TRANSACTIONS, null, contentValues);
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public boolean updateData(String Task, String Date, String Amount, String Category) {
+    public boolean updateData(int id, String Task, String Date, String Amount, String Category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TASK, Task);
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
-        contentValues.put(CATEGORY, Category);
-        db.update(TABLE_EXPENSE, contentValues, "TASK = ?", new String[]{Task});
+        contentValues.put(CATEGORYID, Category);
+        db.update(TABLE_TRANSACTIONS, contentValues, ID + " = ?", new String[]{id + ""});
         return true;
+    }
+
+    public Integer deleteData(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_TRANSACTIONS, ID + " = ?", new String[]{id + ""});
+    }
+
+    public ArrayList<Transaction> getTransactionDateRange(String begin, String end) {
+
+        System.out.println("create table " + TABLE_TRANSACTIONS + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, " + DATE + " TEXT, " + AMOUNT + " DECIMAL(6,2), " + CATEGORYID + " INTEGER ) ");
+        System.out.println("create table " + TABLE_CATEGORY + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + IMAGE + " BLOB, " + CATEGORYNAME + " TEXT, " + CATEGORYTYPE + " TEXT ) ");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS +
+                " WHERE " + DATE + " >= \"" + begin +
+                "\" AND " + DATE + " <= \"" + end + "\"", null);
+
+        return getTransactions(res);
+    }
+
+    public ArrayList<Transaction> getIncomeDateRange(String begin, String end) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS +
+                " WHERE " + AMOUNT + " >= 0" +
+                " AND " + DATE + " >= \"" + begin + "\"" +
+                " AND " + DATE + " <= \"" + end + "\"", null);
+
+        return getTransactions(res);
+    }
+
+    public ArrayList<Transaction> getExpenseDateRange(String begin, String end) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS +
+                " WHERE " + AMOUNT + " <= 0" +
+                " AND " + DATE + " >= \"" + begin + "\"" +
+                " AND " + DATE + " <= \"" + end + "\"", null);
+
+        return getTransactions(res);
+    }
+
+    public static ArrayList<Transaction> getTransactions(Cursor res) {
+
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        Transaction temp;
+
+        System.out.println("Attempt Retrieval");
+        if (res.moveToFirst()) {
+            while (!res.isAfterLast()) {
+                temp = new Transaction();
+                temp.setId(res.getInt(0));
+                temp.setTitle(res.getString(1));
+                temp.setDate(res.getString(2));
+                temp.setAmount(res.getInt(3));
+                temp.setCategory(res.getString(4));
+                transactions.add(temp);
+                res.moveToNext();
+            }
+        }
+        res.close();
+        return transactions;
     }
 
 
@@ -112,8 +170,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 R.drawable.gifts
         };
 
-        Integer expenseImage = R.drawable.general;
-
         Drawable d;
         Bitmap bitmap;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -124,9 +180,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             stream.reset();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             insertCategory(stream.toByteArray(), web[ndx], "expense");
-            if (web[ndx].equals("General")) {
-                imageArray = stream.toByteArray();
-            }
         }
         try {
             stream.close();
@@ -135,19 +188,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String getTransactionasString() {
-        String copy = "";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select " + TASK + "," + DATE + "," + AMOUNT + " from " + TABLE_EXPENSE, null);
-        if (res.moveToFirst()) {
-            do {
-                copy = copy + res.getString(0) + "\t\t" + res.getString(1) + "\t\t" + "$" + res.getString(2) + "\n";
-            } while (res.moveToNext());
-        }
-        res.close();
-        db.close();
-        return copy;
-    }
 
     public boolean insertCategory(byte[] image, String category, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -157,65 +197,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(CATEGORYTYPE, type);
 
         long result = db.insert(TABLE_CATEGORY, null, contentValues);
-        if (result == -1) return false;
-        else return true;
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public Cursor getAllCategories() {
+    public ArrayList<Category> getCategories() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_CATEGORY, null);
 
-        return res;
-    }
+        ArrayList<Category> rtn = new ArrayList<Category>();
+        Category temp;
+        byte[] byteArray;
+        Bitmap bmp;
 
-    public List<String> getAllCategoryNames() {
-        List<String> list = new ArrayList<String>();
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select " + CATEGORYNAME + " from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"expense\"", null);
         if (res.moveToFirst()) {
-            do {
-                list.add(res.getString(0));
-            } while (res.moveToNext());
+            while (!res.isAfterLast()) {
+                temp = new Category();
+                temp.id = res.getInt(0);
+                byteArray = res.getBlob(1);
+                bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                temp.icon = bmp;
+                temp.title = res.getString(2);
+                rtn.add(temp);
+                res.moveToNext();
+            }
         }
+
+        if (rtn.size() == 0) {
+            initCategories();
+            return getCategories();
+        }
+
         res.close();
-        db.close();
-        return list;
-    }
-
-    public Cursor getAllData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_EXPENSE, null);
-        return res;
-    }
-
-    public Cursor getExpenseDateRange(String begin, String end) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_EXPENSE +
-                " WHERE " + DATE + " >= \"" + begin +
-                "\" AND " + DATE + " <= \"" + end + "\"", null);
-
-        return res;
-    }
-
-    public Cursor getIncomeDateRange(String begin, String end) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_INCOME +
-                " WHERE " + INCOMEDATE + " >= \"" + begin +
-                "\" AND " + INCOMEDATE + " <= \"" + end + "\"", null);
-
-        return res;
-    }
-
-
-    public Integer deleteData(String Task) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_EXPENSE, "TASK = ?", new String[]{Task});
-    }
-
-    public static String convertIntToDecimal(int myNumber) {
-        DecimalFormat format = new DecimalFormat("0.00");
-        return format.format(myNumber / 100.0);
+        return rtn;
     }
 
     public static String convertSqlDate(Calendar calendar) {
@@ -230,16 +247,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sdf.format(calendar.getTime());
     }
 
-    public boolean insertIncomeData(String Task, String Date, String Amount, String Category) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(INCOMETASK, Task);
-        contentValues.put(INCOMEDATE, Date);
-        contentValues.put(INCOMEAMOUNT, Amount);
-        contentValues.put(INCOMECATEGORY, Category);
-
-        long result = db.insert(TABLE_INCOME, null, contentValues);
-        if (result == -1) return false;
-        else return true;
+    public static String convertDoubleToHumanDecimal(double myNumber) {
+        DecimalFormat format = new DecimalFormat("0.00");
+        return format.format(myNumber);
     }
+
 }

@@ -26,6 +26,7 @@ public class TransactionTab extends Fragment {
 
     EditText beginDate, endDate;
     Calendar beginCalendar, endCalendar;
+    int mode = 0;
 
 
     DatePickerDialog.OnDateSetListener beginDatePicker = new DatePickerDialog.OnDateSetListener() {
@@ -90,7 +91,7 @@ public class TransactionTab extends Fragment {
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
-                false) ,
+                mode) ,
             getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
@@ -105,7 +106,7 @@ public class TransactionTab extends Fragment {
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
-                false) ,
+                mode) ,
                 getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);

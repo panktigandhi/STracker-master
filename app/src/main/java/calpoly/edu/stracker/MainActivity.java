@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
 
     }
-
-    public String getShareData() {
-        shareData = mydb.getTransactionasString();
-        return shareData;
-    }
+//
+//    public String getShareData() {
+//        shareData = mydb.getTransactionasString();
+//        return shareData;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 // shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Enter Subject");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, getShareData());
+//                shareIntent.putExtra(Intent.EXTRA_TEXT, getShareData());
                 startActivity(Intent.createChooser(shareIntent, "Share Via"));
                 break;
             default:

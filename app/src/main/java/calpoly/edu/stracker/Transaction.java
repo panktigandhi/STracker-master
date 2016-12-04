@@ -9,7 +9,7 @@ public class Transaction {
     boolean isIncome;
     String date;
     String title;
-    int amount;
+    double amount;
     String category;
 
     public Transaction() {
@@ -48,11 +48,11 @@ public class Transaction {
         this.title = title;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

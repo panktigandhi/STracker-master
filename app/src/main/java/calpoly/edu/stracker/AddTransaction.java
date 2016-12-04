@@ -88,12 +88,12 @@ public class AddTransaction extends AppCompatActivity {
         buttonShow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
         buttondelete = (Button) findViewById(R.id.buttondelete);
-        loadSpinnerData();
+//        loadSpinnerData();
         findViewsById();
         setDateTimeField();
-        viewAllData();
+//        viewAllData();
         //UpdateData();
-        deleteData();
+//        deleteData();
     }
 
     private void findViewsById() {
@@ -154,7 +154,7 @@ public class AddTransaction extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
             }
         } else if (flag == 2) {
-            boolean isInsertedIncome = mydb.insertIncomeData(
+            boolean isInsertedIncome = mydb.insertData(
                     editTask.getText().toString(),
                     DatabaseHelper.convertSqlDate(transactionCalendar),
                     editAmount.getText().toString(),
@@ -166,51 +166,51 @@ public class AddTransaction extends AppCompatActivity {
             }
         }
     }
+//
+//    public void viewAllData() {
+//        buttonShow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Cursor res = mydb.getAllData();
+//                if (res.getCount() == 0) {
+//                    showMessage("Error", "Nothing found");
+//                    return;
+//                }
+//                StringBuffer buffer = new StringBuffer();
+//                while (res.moveToNext()) {
+//                    buffer.append("Task: " + res.getString(1) + "\n");
+//                    buffer.append("Date: " + res.getString(2) + "\n");
+//                    buffer.append("Amount: " + res.getString(3) + "\n");
+//                    buffer.append("Category: " + res.getString(4) + "\n");
+//                }
+//                showMessage("DATA", buffer.toString());
+//            }
+//        });
+//
+//    }
 
-    public void viewAllData() {
-        buttonShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Cursor res = mydb.getAllData();
-                if (res.getCount() == 0) {
-                    showMessage("Error", "Nothing found");
-                    return;
-                }
-                StringBuffer buffer = new StringBuffer();
-                while (res.moveToNext()) {
-                    buffer.append("Task: " + res.getString(1) + "\n");
-                    buffer.append("Date: " + res.getString(2) + "\n");
-                    buffer.append("Amount: " + res.getString(3) + "\n");
-                    buffer.append("Category: " + res.getString(4) + "\n");
-                }
-                showMessage("DATA", buffer.toString());
-            }
-        });
+//    public void deleteData() {
+//        buttondelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Integer deletedRows = mydb.deleteData(editTask.getText().toString());
+//                if (deletedRows > 0)
+//
+//                    Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
+//                else
+//                    Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//    }
 
-    }
-
-    public void deleteData() {
-        buttondelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Integer deletedRows = mydb.deleteData(editTask.getText().toString());
-                if (deletedRows > 0)
-
-                    Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
-
-            }
-        });
-    }
-
-    public void loadSpinnerData() {
-
-        List<String> categoryNames = mydb.getAllCategoryNames();
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-    }
+//    public void loadSpinnerData() {
+//
+//        List<String> categoryNames = mydb.getAllCategoryNames();
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(dataAdapter);
+//    }
 
     public void showMessage(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

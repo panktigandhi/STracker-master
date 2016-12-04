@@ -101,34 +101,25 @@ public class SummaryTab extends Fragment {
 
     private void setTotals() {
 
-        ArrayList<Transaction> incomeList = TransactionManager.getTransactions(
+        ArrayList<Transaction> transactionsList = TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
-                true);
+                0);
 
-        ArrayList<Transaction> expenseList = TransactionManager.getTransactions(
-                DatabaseHelper.convertSqlDate(beginCalendar),
-                DatabaseHelper.convertSqlDate(endCalendar),
-                false);
+        double income = 0;
+        double expenses = 0;
 
-        System.out.println("GET SUMMARY");
-        System.out.println(incomeList);
-        System.out.println(expenseList);
-
-        int income = 0;
-        int expenses = 0;
-
-        for (Transaction curTrans : incomeList) {
-            income += curTrans.amount;
-        }
-        for (Transaction curTrans : expenseList) {
-            expenses += curTrans.amount;
+        for (Transaction curTrans : transactionsList) {
+            if (curTrans.amount > 0)
+                income += curTrans.amount;
+            else
+                expenses += curTrans.amount;
         }
 
-        incomeValue.setText("" + income);
-        expenseValue.setText("" + expenses);
-        totalValue.setText("" + (income - expenses));
-        int diff = income - expenses;
+        incomeValue.setText("" + DatabaseHelper.convertDoubleToHumanDecimal(income));
+        expenseValue.setText("" +  DatabaseHelper.convertDoubleToHumanDecimal(expenses));
+        totalValue.setText("" +  DatabaseHelper.convertDoubleToHumanDecimal(income - expenses));
+        double diff = income - expenses;
         if (diff < 0) {
             totalValue.setTextColor( Color.parseColor("#AF002A"));
         }
