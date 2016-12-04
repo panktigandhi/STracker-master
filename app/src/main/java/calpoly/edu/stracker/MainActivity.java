@@ -1,7 +1,10 @@
 package calpoly.edu.stracker;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -40,14 +43,27 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Spending Tracker");
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
 
-
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
+        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                for (Fragment rtn : getSupportFragmentManager().getFragments()) {
+                    if (rtn instanceof SummaryTab)
+                        ((SummaryTab) rtn).setTotals();
+                    else if (rtn instanceof TransactionTab)
+                        ((TransactionTab) rtn).updateRange();
+                    else if (rtn instanceof CategoryTab)
+                        ((CategoryTab) rtn).hashCode();
+                    else
+                        System.out.println("PageError");
+                }
+            }
+        });
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
-
 
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override

@@ -99,7 +99,7 @@ public class SummaryTab extends Fragment {
         return v;
     }
 
-    private void setTotals() {
+    public void setTotals() {
 
         ArrayList<Transaction> transactionsList = TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
