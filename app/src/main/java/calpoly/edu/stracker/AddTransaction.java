@@ -31,7 +31,6 @@ public class AddTransaction extends AppCompatActivity {
 
     DatabaseHelper mydb;
     EditText editTask, editCategory, editDate, editAmount;
-    Button buttonShow, buttonupdate, buttondelete;
     Calendar transactionCalendar;
     Spinner spinner;
     String label;
@@ -44,7 +43,7 @@ public class AddTransaction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
-
+        spinner = (Spinner) findViewById(R.id.spinner);
         mydb = new DatabaseHelper(this);
         editTask = (EditText) findViewById(R.id.edittext_task);
         getSupportActionBar().setTitle("Add Transaction");
@@ -56,10 +55,12 @@ public class AddTransaction extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radioExpense:
                         flag = 1;
+                        loadSpinnerData(flag);
                         //Toast.makeText(getApplicationContext(), "Expense RadioButton checked", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioIncome:
                         flag = 2;
+                        loadSpinnerData(flag);
                         // Toast.makeText(getApplicationContext(), "Income RadioButton checked", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -68,14 +69,11 @@ public class AddTransaction extends AppCompatActivity {
                 }
             }
         });
-        spinner = (Spinner) findViewById(R.id.spinner);
+        loadSpinnerData(1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 label = parent.getItemAtPosition(position).toString();
-//
-//                Toast.makeText(parent.getContext(), "You selected: " + label,
-//                        Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -86,17 +84,9 @@ public class AddTransaction extends AppCompatActivity {
         editTask = (EditText) findViewById(R.id.edittext_task);
 
         editAmount = (EditText) findViewById(R.id.edittext_amount);
-        // editCategory = (EditText) findViewById(R.id.edittext_category);
 
-      //  buttonShow = (Button) findViewById(R.id.buttonshow);
-        //buttonupdate = (Button) findViewById(R.id.buttonupdate);
-        //buttondelete = (Button) findViewById(R.id.buttondelete);
-//        loadSpinnerData();
         findViewsById();
         setDateTimeField();
-//        viewAllData();
-        //UpdateData();
-//        deleteData();
     }
 
     private void findViewsById() {
@@ -126,23 +116,6 @@ public class AddTransaction extends AppCompatActivity {
         editDate.setText(DatabaseHelper.convertHumanDate(transactionCalendar));
     }
 
-//    public void UpdateData()
-//    {
-//        buttonupdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean isUpdate = mydb.updateData(edittask.getText().toString(), editdate.getText().toString(),editamount.getText().toString(),editcategory.getText().toString());
-//                if(isUpdate==true)
-//                {
-//                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
-//                }
-//                else
-//                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//    }
-
     public void addData() {
         if (flag == 1) {
             boolean isInserted = mydb.insertData(
@@ -161,7 +134,7 @@ public class AddTransaction extends AppCompatActivity {
                     editTask.getText().toString(),
                     DatabaseHelper.convertSqlDate(transactionCalendar),
                     editAmount.getText().toString(),
-                    editCategory.getText().toString());
+                    label);
             if (isInsertedIncome == true) {
                 Toast.makeText(getApplicationContext(), "Insert Income Success", Toast.LENGTH_LONG).show();
             } else {
@@ -169,58 +142,20 @@ public class AddTransaction extends AppCompatActivity {
             }
         }
     }
-//
-//    public void viewAllData() {
-//        buttonShow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Cursor res = mydb.getAllData();
-//                if (res.getCount() == 0) {
-//                    showMessage("Error", "Nothing found");
-//                    return;
-//                }
-//                StringBuffer buffer = new StringBuffer();
-//                while (res.moveToNext()) {
-//                    buffer.append("Task: " + res.getString(1) + "\n");
-//                    buffer.append("Date: " + res.getString(2) + "\n");
-//                    buffer.append("Amount: " + res.getString(3) + "\n");
-//                    buffer.append("Category: " + res.getString(4) + "\n");
-//                }
-//                showMessage("DATA", buffer.toString());
-//            }
-//        });
-//
-//    }
 
-//    public void deleteData() {
-//        buttondelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Integer deletedRows = mydb.deleteData(editTask.getText().toString());
-//                if (deletedRows > 0)
-//
-//                    Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_LONG).show();
-//                else
-//                    Toast.makeText(getApplicationContext(), "Delete Fail", Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//    }
 
-//    public void loadSpinnerData() {
-//
-//        List<String> categoryNames = mydb.getAllCategoryNames();
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(dataAdapter);
-//    }
-
-    public void showMessage(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
+    public void loadSpinnerData(int flag) {
+        if (flag == 1) {
+            List<String> categoryNames = mydb.getAllCategoryNames();
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+        } else if (flag == 2) {
+            List<String> categoryNames = mydb.getAllCategoryNamesIncome();
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoryNames);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+        }
     }
 
     @Override

@@ -26,7 +26,14 @@ public class CategoryManager {
         cList = db.getCategories();
         return cList;
     }
-
+    public static ArrayList<Category> getIncomeCategories() {
+        cList = db.getIncomeCategories();
+        return cList;
+    }
+    public static ArrayList<Category> getExpenseCategories() {
+        cList = db.getExpenseCategories();
+        return cList;
+    }
     public static Category findCategory(int id) {
 
         if (cList == null) {

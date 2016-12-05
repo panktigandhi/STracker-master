@@ -17,7 +17,8 @@ import java.util.Calendar;
 
 public class EditActivity extends AppCompatActivity {
     String itemTitle, date;
-    String amount;
+    String amount,category;
+    int position;
     EditText editDescription, editDate, editAmount;
     DatabaseHelper mydb;
     Calendar transactionCalendar;
@@ -29,9 +30,11 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            position=extras.getInt("position");
             itemTitle = extras.getString("ItemTitle");
             date = extras.getString("date");
             amount = extras.getString("amount");
+            category=extras.getString("category");
         }
         editDescription = (EditText) findViewById(R.id.editDesc);
         editDate = (EditText) findViewById(R.id.editDate);
@@ -73,22 +76,22 @@ public class EditActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_done) {
-//            updateTransaction();
+            updateTransaction();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-//    public void updateTransaction() {
-//        boolean isUpdate = mydb.updateData(editDescription.getText().toString(), editDate.getText().toString(), editAmount.getText().toString(), "fuel");
-//        Log.d("editDescription", editDescription.getText().toString());
-//        Log.d("editDate", editDate.getText().toString());
-//        Log.d("editAmount", editAmount.getText().toString());
-//
-//        if (isUpdate == true) {
-//            Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
-//        } else
-//            Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_LONG).show();
-//        finish();
-//    }
+    public void updateTransaction() {
+        boolean isUpdate = mydb.updateData(position, editDescription.getText().toString(), editDate.getText().toString(), editAmount.getText().toString(),category);
+        Log.d("editDescription", editDescription.getText().toString());
+        Log.d("editDate", editDate.getText().toString());
+        Log.d("editAmount", editAmount.getText().toString());
+
+        if (isUpdate == true) {
+            Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_LONG).show();
+        finish();
+    }
 }

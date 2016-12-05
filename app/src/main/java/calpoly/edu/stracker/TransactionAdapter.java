@@ -3,6 +3,7 @@ package calpoly.edu.stracker;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public int getItemCount() {
         return mList.size();
     }
+
     public void dismissItem(int pos) {
         mList.remove(pos);
         this.notifyItemRemoved(pos);
@@ -66,9 +68,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), EditActivity.class);
+                    i.putExtra("position", mTransaction.getId());
+                    //Log.d("mtransactionposition", String.valueOf(mTransaction.getId()));
                     i.putExtra("ItemTitle", itemTitle.getText().toString());
                     i.putExtra("date", date.getText().toString());
                     i.putExtra("amount", amount.getText().toString());
+                    i.putExtra("category", String.valueOf(CategoryManager.findCategory(mTransaction.getId())));
+                    Log.d("mtransactioncategory", String.valueOf(CategoryManager.findCategory(mTransaction.getId())));
                     v.getContext().startActivity(i);
                 }
             });

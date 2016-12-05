@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <RadioGroup
-        android:id="@+id/radioGroup1"
+        android:id="@+id/radioGroup3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioExpense"
+            android:id="@+id/radioCategoryExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:textColor="@drawable/rbtn_textcolor_selected" />
 
         <RadioButton
-            android:id="@+id/radioIncome"
+            android:id="@+id/radioCategoryIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,7 +44,7 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radioGroup1"
+        android:layout_below="@id/radioGroup3"
         android:id="@+id/category_recyclerview"/>
 
     <ImageButton

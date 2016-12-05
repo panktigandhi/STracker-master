@@ -22,11 +22,9 @@
         <ImageView
             android:id="@+id/imageview"
             android:layout_width="wrap_content"
+            android:background="@drawable/general"
             android:layout_height="wrap_content" />
-        <!--<EditText-->
-        <!--android:id="@+id/edittext_image"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,4 +43,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/CATEGORYTYPE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category Type" />
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RadioButton
+        android:text="Income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonIncome" />
+
+    <RadioButton
+        android:text="Expense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonExpense" />
+    </RadioGroup>
 </LinearLayout>

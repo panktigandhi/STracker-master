@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -245,7 +246,94 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         res.close();
         return rtn;
     }
+    public ArrayList<Category> getExpenseCategories() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"expense\"", null);
 
+        ArrayList<Category> rtn1 = new ArrayList<Category>();
+        Category temp;
+        byte[] byteArray;
+        Bitmap bmp;
+
+        if (res.moveToFirst()) {
+            while (!res.isAfterLast()) {
+                temp = new Category();
+                temp.id = res.getInt(0);
+                byteArray = res.getBlob(1);
+                bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                temp.icon = bmp;
+                temp.title = res.getString(2);
+                rtn1.add(temp);
+                res.moveToNext();
+            }
+        }
+
+        if (rtn1.size() == 0) {
+            initCategories();
+            return getExpenseCategories();
+        }
+
+        res.close();
+        return rtn1;
+    }
+
+    public ArrayList<Category> getIncomeCategories() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"income\"", null);
+
+        ArrayList<Category> rtn2 = new ArrayList<Category>();
+        Category temp;
+        byte[] byteArray;
+        Bitmap bmp;
+
+        if (res.moveToFirst()) {
+            while (!res.isAfterLast()) {
+                temp = new Category();
+                temp.id = res.getInt(0);
+                byteArray = res.getBlob(1);
+                bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                temp.icon = bmp;
+                temp.title = res.getString(2);
+                rtn2.add(temp);
+                res.moveToNext();
+            }
+        }
+
+        if (rtn2.size() == 0) {
+            initCategories();
+            return getIncomeCategories();
+        }
+
+        res.close();
+        return rtn2;
+    }
+
+    public List<String> getAllCategoryNames() {
+        List<String> list = new ArrayList<String>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select " + CATEGORYNAME + " from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"expense\"", null);
+        if (res.moveToFirst()) {
+            do {
+                list.add(res.getString(0));
+            } while (res.moveToNext());
+        }
+        res.close();
+        db.close();
+        return list;
+    }
+    public List<String> getAllCategoryNamesIncome() {
+        List<String> list = new ArrayList<String>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select " + CATEGORYNAME + " from " + TABLE_CATEGORY + " where " + CATEGORYTYPE + " = \"income\"", null);
+        if (res.moveToFirst()) {
+            do {
+                list.add(res.getString(0));
+            } while (res.moveToNext());
+        }
+        res.close();
+        db.close();
+        return list;
+    }
     public static String convertSqlDate(Calendar calendar) {
         String format = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
