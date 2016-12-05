@@ -6,37 +6,37 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:clickable="true"
-    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:layout_margin="40dp"
     android:background="@drawable/custom_bg"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/transaction_item_category_icon"
-        android:layout_width="40dp"
+        android:layout_width="50dp"
         android:layout_gravity="center"
-        android:layout_height="40dp"/>
+        android:layout_height="50dp"/>
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/transaction_item_title"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="40dp"
             android:layout_width="match_parent"
-            android:textSize="20dp"
+            android:textSize="25sp"
             android:gravity="center"
-            android:layout_height="25dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/transaction_item_date"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="40dp"
             android:layout_width="match_parent"
-            android:textSize="10dp"
+            android:textSize="15sp"
             android:gravity="center"
-            android:layout_height="15dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp" />
 
     </LinearLayout>
@@ -44,8 +44,8 @@
     <TextView
         android:id="@+id/transaction_item_amount"
         android:layout_width="match_parent"
-        android:textSize="20dp"
+        android:textSize="25sp"
         android:gravity="center"
-        android:layout_height="40dp"/>
+        android:layout_height="50dp"/>
 
 </LinearLayout>

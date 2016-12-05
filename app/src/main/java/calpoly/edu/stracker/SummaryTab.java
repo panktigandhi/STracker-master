@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -84,6 +85,7 @@ public class SummaryTab extends Fragment {
                         endCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
 
         FAB = (ImageButton) v.findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
