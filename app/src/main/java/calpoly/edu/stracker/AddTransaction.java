@@ -1,6 +1,7 @@
 package calpoly.edu.stracker;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AddTransaction extends AppCompatActivity {
 
@@ -85,9 +88,9 @@ public class AddTransaction extends AppCompatActivity {
         editAmount = (EditText) findViewById(R.id.edittext_amount);
         // editCategory = (EditText) findViewById(R.id.edittext_category);
 
-        buttonShow = (Button) findViewById(R.id.buttonshow);
+      //  buttonShow = (Button) findViewById(R.id.buttonshow);
         //buttonupdate = (Button) findViewById(R.id.buttonupdate);
-        buttondelete = (Button) findViewById(R.id.buttondelete);
+        //buttondelete = (Button) findViewById(R.id.buttondelete);
 //        loadSpinnerData();
         findViewsById();
         setDateTimeField();
@@ -234,5 +237,6 @@ public class AddTransaction extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
 

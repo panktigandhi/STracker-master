@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
    // EditText editimage;
@@ -44,6 +46,7 @@ public class AddCategory extends AppCompatActivity {
 //        }
 
         imageView = (ImageView) findViewById(R.id.imageview);
+        imageView.setImageResource(R.drawable.general);
         //imageView.setImageResource(mThumbIds[imageposition]);
         //  editimage = (EditText) findViewById(R.id.edittext_image);
         //editimage.setInputType(InputType.TYPE_NULL);
@@ -51,13 +54,13 @@ public class AddCategory extends AppCompatActivity {
 
         editcategoryname = (EditText) findViewById(R.id.edittext_categoryname);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GridviewImage.class);
-                startActivity(intent);
-            }
-        });
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, GridviewImage.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -95,4 +98,5 @@ public class AddCategory extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

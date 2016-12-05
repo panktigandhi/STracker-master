@@ -4,6 +4,7 @@ package calpoly.edu.stracker;
  * Created by panktigandhi on 10/15/16.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CategoryTab extends Fragment {
 
@@ -94,4 +97,5 @@ public class CategoryTab extends Fragment {
         return v;
 
     }
+
 }
