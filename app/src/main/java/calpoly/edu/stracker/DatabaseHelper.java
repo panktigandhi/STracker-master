@@ -165,6 +165,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 R.drawable.gifts
         };
 
+        String[] incomeCatNames = {
+                "Salary"
+        };
+
+        Integer[] incomeImageId = {
+                R.drawable.general
+        };
+
         Drawable d;
         Bitmap bitmap;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -175,6 +183,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             stream.reset();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             insertCategory(stream.toByteArray(), web[ndx], "expense");
+        }
+
+        for (int ndx = 0; ndx < incomeCatNames.length; ndx++) {
+            d = curContext.getResources().getDrawable(incomeImageId[ndx], curContext.getTheme());
+            bitmap = ((BitmapDrawable) d).getBitmap();
+            stream.reset();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            insertCategory(stream.toByteArray(), incomeCatNames[ndx], "income");
         }
         try {
             stream.close();
