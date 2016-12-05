@@ -80,8 +80,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             amount.setText(DatabaseHelper.convertDoubleToHumanDecimal(mTransaction.getAmount()));
             date.setText(mTransaction.getDate());
 
-//            if (CategoryManager.findCategory(mTransaction.getCategory()).icon != null)
-//                categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getCategory()).icon);
+            if (CategoryManager.findCategory(mTransaction.getId()).icon != null)
+                categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getId()).icon);
 
         }
 

@@ -23,18 +23,18 @@ public class CategoryManager {
     }
 
     public static ArrayList<Category> getCategories() {
-
-        return db.getCategories();
+        cList = db.getCategories();
+        return cList;
     }
 
-    public static Category findCategory(String title) {
+    public static Category findCategory(int id) {
 
         if (cList == null) {
             cList = getCategories();
         }
 
         for (Category cat : cList) {
-            if (cat.title.equals(title)) {
+            if (cat.id == id) {
                 return cat;
             }
         }
