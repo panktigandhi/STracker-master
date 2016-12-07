@@ -1,9 +1,6 @@
 package calpoly.edu.stracker;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
@@ -26,14 +23,7 @@ public class CategoryManager {
         cList = db.getCategories();
         return cList;
     }
-    public static ArrayList<Category> getIncomeCategories() {
-        cList = db.getIncomeCategories();
-        return cList;
-    }
-    public static ArrayList<Category> getExpenseCategories() {
-        cList = db.getExpenseCategories();
-        return cList;
-    }
+
     public static Category findCategory(int id) {
 
         if (cList == null) {
