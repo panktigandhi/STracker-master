@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <RadioGroup
+        android:id="@+id/transaction_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/transaction_radio_group_radioAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:checked="true"
+            android:button="@null"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:text="ALL"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+
+        <RadioButton
+            android:id="@+id/transaction_radio_group_radioIncome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:text="INCOME"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+
+        <RadioButton
+            android:id="@+id/transaction_radio_group_radioExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:text="EXPENSE"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:id="@+id/linearlayout"
+        android:weightSum="2">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/transaction_begin_date" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/transaction_end_date"
+        android:layout_toEndOf="@+id/transaction_begin_date" />
+</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/transaction_recyclerview"
+        android:orientation="vertical" />
+
+</LinearLayout>

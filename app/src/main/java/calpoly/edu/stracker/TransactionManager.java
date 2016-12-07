@@ -23,7 +23,6 @@ public class TransactionManager {
 
     // mode < 0 negative , mode = 0 get all, mode = 1, get positive
     public static ArrayList<Transaction> getTransactions(String begin, String end, int mode) {
-
         if (mode < 0)
             return db.getExpenseDateRange(begin, end);
         else if (mode == 0)

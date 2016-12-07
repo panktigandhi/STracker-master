@@ -2,6 +2,7 @@ package calpoly.edu.stracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +13,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**ArrayList
+/**
+ * ArrayList
  * Created by makkabeus on 11/21/16.
  */
 
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder>{
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
     Context curContext;
     ArrayList<Transaction> mList;
@@ -69,12 +71,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), EditActivity.class);
                     i.putExtra("position", mTransaction.getId());
-                    //Log.d("mtransactionposition", String.valueOf(mTransaction.getId()));
                     i.putExtra("ItemTitle", itemTitle.getText().toString());
                     i.putExtra("date", date.getText().toString());
                     i.putExtra("amount", amount.getText().toString());
-                    i.putExtra("category", String.valueOf(CategoryManager.findCategory(mTransaction.getId())));
-                    Log.d("mtransactioncategory", String.valueOf(CategoryManager.findCategory(mTransaction.getId())));
+                    i.putExtra("category", mTransaction.getCategory());
+                    Log.d("mtrr", mTransaction.getCategory());
                     v.getContext().startActivity(i);
                 }
             });
@@ -85,6 +86,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             itemTitle.setText(mTransaction.getTitle());
             amount.setText(DatabaseHelper.convertDoubleToHumanDecimal(mTransaction.getAmount()));
             date.setText(mTransaction.getDate());
+            if (mTransaction.getAmount() < 0) {
+                amount.setTextColor(Color.parseColor("#AF002A"));
+            } else {
+                amount.setTextColor(Color.parseColor("#008000"));
+            }
 
             if (CategoryManager.findCategory(mTransaction.getId()).icon != null)
                 categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getId()).icon);

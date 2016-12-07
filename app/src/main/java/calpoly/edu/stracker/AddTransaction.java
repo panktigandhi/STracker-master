@@ -44,6 +44,7 @@ public class AddTransaction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
         spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setPrompt("SELECT");
         mydb = new DatabaseHelper(this);
         editTask = (EditText) findViewById(R.id.edittext_task);
         getSupportActionBar().setTitle("Add Transaction");
@@ -121,7 +122,7 @@ public class AddTransaction extends AppCompatActivity {
             boolean isInserted = mydb.insertData(
                     editTask.getText().toString(),
                     DatabaseHelper.convertSqlDate(transactionCalendar),
-                    editAmount.getText().toString(),
+                    "-"+editAmount.getText().toString(),
                     label);
 
             if (isInserted == true) {
@@ -141,6 +142,7 @@ public class AddTransaction extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Insert Income Fail", Toast.LENGTH_LONG).show();
             }
         }
+        finish();
     }
 
 

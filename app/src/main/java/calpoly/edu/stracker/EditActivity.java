@@ -85,7 +85,7 @@ public class EditActivity extends AppCompatActivity {
     public void updateTransaction() {
         boolean isUpdate = mydb.updateData(position, editDescription.getText().toString(), DatabaseHelper.convertSqlDate(transactionCalendar), editAmount.getText().toString(),category);
         Log.d("editDescription", editDescription.getText().toString());
-        Log.d("editDate", DatabaseHelper.convertSqlDate(transactionCalendar));
+        Log.d("editDate", editDate.getText().toString());
         Log.d("editAmount", editAmount.getText().toString());
 
         if (isUpdate == true) {

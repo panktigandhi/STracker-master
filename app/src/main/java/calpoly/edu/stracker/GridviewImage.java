@@ -25,9 +25,9 @@ public class GridviewImage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(GridviewImage.this, "position clicked: " + position, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(context, AddCategory.class);
-                i.putExtra("Image", position);
+                i.putExtra("Image",position);
+                setResult(2,i);
                 finish();
-               // startActivity(i);
             }
         });
     }

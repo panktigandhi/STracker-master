@@ -48,56 +48,66 @@ public class AddCategory extends AppCompatActivity {
         mydb = new DatabaseHelper(this);
         getSupportActionBar().setTitle("Add Category");
         radioGroup2 = (RadioGroup) findViewById(R.id.radioGroup1);
-        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radioButtonExpense:
-
-                        categoryType="expense";
-                        //Toast.makeText(getApplicationContext(), "Expense RadioButton checked", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.radioButtonIncome:
-
-                        categoryType="income";
-                        // Toast.makeText(getApplicationContext(), "Income RadioButton checked", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
+//        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.radioButtonExpense:
+//
+//                        categoryType="expense";
+//                        //Toast.makeText(getApplicationContext(), "Expense RadioButton checked", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.radioButtonIncome:
+//
+//                        categoryType="income";
+//                        // Toast.makeText(getApplicationContext(), "Income RadioButton checked", Toast.LENGTH_SHORT).show();
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//            }
+//        });
 //        Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
 //            imageposition = extras.getInt("image");
 //        }
 
         imageView = (ImageView) findViewById(R.id.imageview);
-       // imageView.setImageResource(R.drawable.general);
+        imageView.setImageResource(R.drawable.general);
 
 
 
         editcategoryname = (EditText) findViewById(R.id.edittext_categoryname);
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, GridviewImage.class);
-//                startActivity(intent);
-//            }
-//        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GridviewImage.class);
+                startActivityForResult(intent,2);
+            }
+        });
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==2)
+        {
+            if(data!=null)
+            {
+                imageposition=data.getIntExtra("Image",0);
+                imageView.setImageResource(mThumbIds[imageposition]);
+
+            }
+        }
     }
 
+
     public void addCategory() {
-        CategoryManager.getCategories();
+       // CategoryManager.getCategories();
         bos = new ByteArrayOutputStream();
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.general);
+        bitmap = BitmapFactory.decodeResource(getResources(),mThumbIds[imageposition]);
         bitmap.compress(Bitmap.CompressFormat.PNG, 100 , bos);
         bitmapdata = bos.toByteArray();
         boolean isInserted = mydb.insertCategory(bitmapdata, editcategoryname.getText().toString(), categoryType);

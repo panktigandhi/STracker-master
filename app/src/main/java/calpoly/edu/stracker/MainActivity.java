@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(this);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Spending Tracker");
+       // getSupportActionBar().setTitle("Spending Tracker");
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
 
         pager = (ViewPager) findViewById(R.id.pager);
@@ -75,11 +75,6 @@ public class MainActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
 
     }
-//
-//    public String getShareData() {
-//        shareData = mydb.getTransactionasString();
-//        return shareData;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,12 +85,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_share:
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                // shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Enter Subject");
-//                shareIntent.putExtra(Intent.EXTRA_TEXT, getShareData());
-                startActivity(Intent.createChooser(shareIntent, "Share Via"));
+            case R.id.menu_credits:
+                Intent intent = new Intent(this, CreditforIcon.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -6,9 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionOverflowButtonStyle">@style/menuOverFlow</item>
     </style>
     <style name="MyDatePickerTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/date_picker_background</item>
+    </style>
+    <style name="menuOverFlow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+
+        <item name="android:src">@drawable/ic_more_vert_white_36dp</item>
     </style>
 </resources>

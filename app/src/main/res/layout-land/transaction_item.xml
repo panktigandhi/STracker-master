@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:clickable="true"
+   android:padding="5dp"
+    android:background="@drawable/custom_bg"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/transaction_item_category_icon"
+        android:layout_width="40dp"
+        android:layout_gravity="center"
+        android:layout_height="40dp"/>
+
+    <LinearLayout
+        android:layout_width="430dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/transaction_item_title"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/transaction_item_date"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:textSize="10dp"
+            android:gravity="center"
+            android:layout_height="15dp"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/transaction_item_amount"
+        android:layout_width="match_parent"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_height="40dp"/>
+
+</LinearLayout>

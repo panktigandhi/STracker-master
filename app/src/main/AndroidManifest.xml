@@ -18,9 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTransaction" />
-        <activity android:name=".AddCategory"></activity>
+        <activity android:name=".AddCategory" />
         <activity android:name=".GridviewImage" />
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".CreditforIcon"></activity>
     </application>
 
 </manifest>

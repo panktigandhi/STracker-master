@@ -120,8 +120,8 @@ public class SummaryTab extends Fragment {
 
         incomeValue.setText("" + DatabaseHelper.convertDoubleToHumanDecimal(income));
         expenseValue.setText("" +  DatabaseHelper.convertDoubleToHumanDecimal(expenses));
-        totalValue.setText("" +  DatabaseHelper.convertDoubleToHumanDecimal(income - expenses));
-        double diff = income - expenses;
+        totalValue.setText("" +  DatabaseHelper.convertDoubleToHumanDecimal(income + expenses));
+        double diff = income + expenses;
         if (diff < 0) {
             totalValue.setTextColor( Color.parseColor("#AF002A"));
         }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/radioGroup3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioCategoryExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:button="@null"
+            android:checked="true"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:text="EXPENSE"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+
+        <RadioButton
+            android:id="@+id/radioCategoryIncome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rbtn_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="INCOME"
+            android:textColor="@drawable/rbtn_textcolor_selected" />
+    </RadioGroup>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroup3"
+        android:id="@+id/category_recyclerview"/>
+
+    <ImageButton
+        android:layout_margin="15dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_add_white_36dp"
+        android:background="@drawable/circle"
+        android:id="@+id/imageButton1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>
