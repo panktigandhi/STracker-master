@@ -5,6 +5,7 @@ package calpoly.edu.stracker;
  */
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,7 +77,6 @@ public class TransactionTab extends Fragment {
                         break;
                 }
 
-                updateRange();
             }
         });
 
@@ -126,7 +126,6 @@ public class TransactionTab extends Fragment {
     }
 
     public void updateRange() {
-
         transactionAdapter = new TransactionAdapter(TransactionManager.getTransactions(
                 DatabaseHelper.convertSqlDate(beginCalendar),
                 DatabaseHelper.convertSqlDate(endCalendar),
@@ -135,7 +134,11 @@ public class TransactionTab extends Fragment {
 
         transactionRecyclerView.setAdapter(transactionAdapter);
         transactionAdapter.notifyDataSetChanged();
+    }
 
+    public void onStart() {
+        super.onStart();
+        updateRange();
     }
 
 }

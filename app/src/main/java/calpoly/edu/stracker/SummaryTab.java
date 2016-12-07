@@ -96,8 +96,6 @@ public class SummaryTab extends Fragment {
             }
         });
 
-        setTotals();
-
         return v;
     }
 
@@ -128,5 +126,10 @@ public class SummaryTab extends Fragment {
         else
             totalValue.setTextColor( Color.parseColor("#008000"));
 
+    }
+
+    public void onStart() {
+        super.onStart();
+        setTotals();
     }
 }
