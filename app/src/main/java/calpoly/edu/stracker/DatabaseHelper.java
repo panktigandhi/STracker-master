@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String TASK = "TASK";
     public static final String DATE = "DATE";
     public static final String AMOUNT = "AMOUNT";
-    public static final String CATEGORYID = "CATEGORYID";
+    public static final String CATEGORY = "CATEGORY";
 
     public static final String TABLE_CATEGORY = "Category";
     public static final String CATEGORYNAME = "CATEGORYNAME";
@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 
         try {
-            db.execSQL(" create table " + TABLE_TRANSACTIONS + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, " + DATE + " TEXT, " + AMOUNT + " DECIMAL(6,2), " + CATEGORYID + " INTEGER ) ");
+            db.execSQL(" create table " + TABLE_TRANSACTIONS + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, " + DATE + " TEXT, " + AMOUNT + " DECIMAL(6,2), " + CATEGORY + " STRING ) ");
             db.execSQL(" create table " + TABLE_CATEGORY + " ( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + IMAGE + " BLOB, " + CATEGORYNAME + " TEXT, " + CATEGORYTYPE + " TEXT ) ");
         } catch (Exception e) {
             System.out.println("PLS WORK");
@@ -69,7 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(TASK, Task);
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
-        contentValues.put(CATEGORYID, Category);
+        contentValues.put(CATEGORY, Category);
 
         long result = db.insert(TABLE_TRANSACTIONS, null, contentValues);
         if (result == -1) {
@@ -85,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put(TASK, Task);
         contentValues.put(DATE, Date);
         contentValues.put(AMOUNT, Amount);
-        contentValues.put(CATEGORYID, Category);
+        contentValues.put(CATEGORY, Category);
         db.update(TABLE_TRANSACTIONS, contentValues, ID + " = ?", new String[]{id + ""});
         return true;
     }
@@ -100,7 +100,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Cursor res = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS +
                 " WHERE " + DATE + " >= \"" + begin +
                 "\" AND " + DATE + " <= \"" + end + "\"", null);
-
         return getTransactions(res);
     }
 
