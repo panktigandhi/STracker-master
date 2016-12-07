@@ -13,13 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 
 public class CategoryTab extends Fragment {
 
     ImageButton FAB1;
+    RadioGroup categoryRadio;
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
+    private int tabPos = 0;
+    private DatabaseHelper db = CategoryManager.db;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.category_tab, container, false);
@@ -27,7 +31,28 @@ public class CategoryTab extends Fragment {
         categoryRecyclerView = (RecyclerView) v.findViewById(R.id.category_recyclerview);
         categoryRecyclerView.setLayoutManager((new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false)));
 
-        categoryAdapter = new CategoryAdapter(CategoryManager.getCategories(), getContext());
+        categoryRadio = (RadioGroup) v.findViewById(R.id.radioGroup3);
+        categoryRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioCategoryExpense:
+                        tabPos = 0;
+                        updateList();
+                        break;
+                    case R.id.radioCategoryIncome:
+                        tabPos = 1;
+                        updateList();
+                        break;
+                    default:
+                        tabPos = 2;
+                        updateList();
+                        break;
+                }
+            }
+        });
+
+        categoryAdapter = new CategoryAdapter(tabPos == 0 ? db.getExpenseCategories() : db.getIncomeCategories(), getContext() );
         categoryRecyclerView.setAdapter(categoryAdapter);
 
         FAB1 = (ImageButton) v.findViewById(R.id.imageButton1);
@@ -41,6 +66,11 @@ public class CategoryTab extends Fragment {
         });
         return v;
 
+    }
+
+    public void updateList() {
+        categoryAdapter.mList = tabPos == 0 ? db.getExpenseCategories() : db.getIncomeCategories();
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
