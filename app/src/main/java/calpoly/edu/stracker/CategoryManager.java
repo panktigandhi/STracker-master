@@ -24,20 +24,19 @@ public class CategoryManager {
         return cList;
     }
 
-    public static Category findCategory(int id) {
+    public static Category findCategory(String title) {
 
         if (cList == null) {
             cList = getCategories();
         }
 
         for (Category cat : cList) {
-            if (cat.id == id) {
+            if (cat.title.equals(title)) {
                 return cat;
             }
         }
 
         return null;
-
     }
 
 }

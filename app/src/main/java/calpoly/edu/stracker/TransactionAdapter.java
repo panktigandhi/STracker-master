@@ -75,7 +75,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                     i.putExtra("date", date.getText().toString());
                     i.putExtra("amount", amount.getText().toString());
                     i.putExtra("category", mTransaction.getCategory());
-                    Log.d("mtrr", mTransaction.getCategory());
                     v.getContext().startActivity(i);
                 }
             });
@@ -92,8 +91,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
                 amount.setTextColor(Color.parseColor("#008000"));
             }
 
-            if (CategoryManager.findCategory(mTransaction.getId()).icon != null)
-                categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getId()).icon);
+            if (CategoryManager.findCategory(mTransaction.getCategory()).icon != null)
+                categoryImage.setImageBitmap(CategoryManager.findCategory(mTransaction.getCategory()).icon);
 
         }
 
