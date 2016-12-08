@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
@@ -145,6 +142,7 @@ public class AddCategory extends AppCompatActivity {
 
         if (id == R.id.menu_add) {
             addCategory();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
