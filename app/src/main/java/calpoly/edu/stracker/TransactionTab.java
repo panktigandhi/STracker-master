@@ -76,7 +76,7 @@ public class TransactionTab extends Fragment {
                         mode = 0;
                         break;
                 }
-
+                updateRange();
             }
         });
 
