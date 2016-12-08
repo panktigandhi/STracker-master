@@ -71,26 +71,23 @@ public class AddCategory extends AppCompatActivity {
         mydb = new DatabaseHelper(this);
         getSupportActionBar().setTitle("Add Category");
         radioGroup2 = (RadioGroup) findViewById(R.id.radioGroup1);
-//        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.radioButtonExpense:
-//
-//                        categoryType="expense";
-//                        //Toast.makeText(getApplicationContext(), "Expense RadioButton checked", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.radioButtonIncome:
-//
-//                        categoryType="income";
-//                        // Toast.makeText(getApplicationContext(), "Income RadioButton checked", Toast.LENGTH_SHORT).show();
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//            }
-//        });
+        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButtonExpense:
+                        categoryType="expense";
+                        break;
+
+                    case R.id.radioButtonIncome:
+                        categoryType="income";
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
 
         imageView = (ImageView) findViewById(R.id.imageview);
         imageView.setImageResource(R.drawable.general);
@@ -120,8 +117,7 @@ public class AddCategory extends AppCompatActivity {
         bos = new ByteArrayOutputStream();
         bitmap = BitmapFactory.decodeResource(getResources(), mThumbIds[imageposition]);
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        bitmapdata = bos.toByteArray();
-        boolean isInserted = mydb.insertCategory(bitmapdata, editcategoryname.getText().toString(), categoryType);
+        boolean isInserted = mydb.insertCategory(bos.toByteArray(), editcategoryname.getText().toString(), categoryType);
         if (isInserted == true)
             Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
         else

@@ -78,6 +78,6 @@ public class CategoryTab extends Fragment {
     public void onStart() {
         super.onStart();
         CategoryManager.getCategories();
-        categoryAdapter.notifyDataSetChanged();
+        updateList();
     }
 }
