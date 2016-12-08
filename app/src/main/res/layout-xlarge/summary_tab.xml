@@ -30,6 +30,7 @@
         android:textSize="20sp"
         android:layout_weight="1"
         android:gravity="center"
+        android:focusableInTouchMode="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:id="@+id/summary_begin_date" />
@@ -40,6 +41,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:gravity="center"
+        android:focusableInTouchMode="false"
         android:clickable="true"
         android:textSize="20sp"
         android:layout_weight="1"

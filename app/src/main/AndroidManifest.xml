@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
         <activity android:name=".AddCategory" />
         <activity android:name=".GridviewImage" />
         <activity android:name=".EditActivity" />
-        <activity android:name=".CreditforIcon"></activity>
+        <activity android:name=".CreditforIcon" />
     </application>
 
 </manifest>

@@ -62,6 +62,7 @@ public class CategoryTab extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCategory.class);
                 startActivity(intent);
+
             }
         });
         return v;

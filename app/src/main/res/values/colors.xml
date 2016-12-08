@@ -5,4 +5,8 @@
     <color name="tabsScrollColor">#616161</color>
     <color name="colorAccent">#616161</color>
     <color name="colorHighlight">#B6B6B6</color>
+    <color name="colorTranslucentRed">#32cc2629</color>
+    <color name="colorTranslucentGreen">#3225ac2c</color>
+    <color name="colorTranslucentGray">#32616161</color>
+
 </resources>

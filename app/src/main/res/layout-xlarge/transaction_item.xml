@@ -14,7 +14,6 @@
         android:id="@+id/transaction_item_category_icon"
         android:layout_width="50dp"
         android:layout_gravity="center"
-        android:background="@drawable/add"
         android:layout_height="50dp"/>
 
     <LinearLayout

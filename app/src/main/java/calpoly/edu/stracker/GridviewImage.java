@@ -23,7 +23,6 @@ public class GridviewImage extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(GridviewImage.this, "position clicked: " + position, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(context, AddCategory.class);
                 i.putExtra("Image",position);
                 setResult(2,i);
@@ -57,7 +56,7 @@ public class GridviewImage extends AppCompatActivity {
                 imageView = new ImageView(mContext);
                 imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
+                imageView.setBackgroundResource(R.drawable.custom_bg);
             } else {
                 imageView = (ImageView) convertView;
             }
@@ -72,7 +71,33 @@ public class GridviewImage extends AppCompatActivity {
                 R.drawable.entertainment,
                 R.drawable.fuel,
                 R.drawable.general,
-                R.drawable.gifts
+                R.drawable.gifts,
+                R.drawable.ic_beach_access_black_36dp,
+                R.drawable.ic_child_friendly_black_36dp,
+                R.drawable.ic_edit_black_36dp,
+                R.drawable.ic_fitness_center_black_36dp,
+                R.drawable.ic_headset_black_36dp,
+                R.drawable.ic_hotel_black_36dp,
+                R.drawable.ic_kitchen_black_36dp,
+                R.drawable.ic_laptop_mac_black_36dp,
+                R.drawable.ic_local_drink_black_36dp,
+                R.drawable.ic_local_hospital_black_36dp,
+                R.drawable.ic_local_offer_black_36dp,
+                R.drawable.ic_local_parking_black_36dp,
+                R.drawable.ic_local_pizza_black_36dp,
+                R.drawable.ic_phone_android_black_36dp,
+                R.drawable.ic_photo_camera_black_36dp,
+                R.drawable.ic_spa_black_36dp,
+                R.drawable.ic_speaker_black_36dp,
+                R.drawable.ic_tv_black_36dp,
+                R.drawable.ic_watch_black_36dp,
+                R.drawable.ic_show_chart_black_36dp,
+                R.drawable.ic_airplanemode_active_black_36dp,
+                R.drawable.ic_shopping_basket_black_36dp,
+                R.drawable.ic_payment_black_36dp,
+                R.drawable.ic_favorite_black_36dp,
+                R.drawable.ic_explore_black_36dp,
+                R.drawable.ic_call_black_36dp,
         };
     }
 }

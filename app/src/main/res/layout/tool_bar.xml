@@ -2,8 +2,8 @@
 <android.support.v7.widget.Toolbar android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:theme="@style/Theme.AppCompat"
     android:background="@color/colorPrimary"
     android:elevation="2dp"
-    app:titleTextColor="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android" />
 

@@ -44,7 +44,6 @@ public class AddTransaction extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
         spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setPrompt("SELECT");
         mydb = new DatabaseHelper(this);
         editTask = (EditText) findViewById(R.id.edittext_task);
         getSupportActionBar().setTitle("Add Transaction");
@@ -93,7 +92,6 @@ public class AddTransaction extends AppCompatActivity {
     private void findViewsById() {
         editDate = (EditText) findViewById(R.id.edittext_date);
         editDate.setInputType(InputType.TYPE_NULL);
-        editDate.requestFocus();
     }
 
     private void setDateTimeField() {

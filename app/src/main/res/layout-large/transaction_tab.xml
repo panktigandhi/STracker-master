@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:layout_weight="1"
+        android:focusableInTouchMode="false"
         android:textSize="20sp"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -82,6 +83,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:layout_weight="1"
+        android:focusableInTouchMode="false"
         android:layout_alignParentEnd="true"
         android:id="@+id/transaction_end_date"
         android:layout_toEndOf="@+id/transaction_begin_date" />
