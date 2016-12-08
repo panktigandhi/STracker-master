@@ -50,6 +50,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         this.notifyItemRemoved(pos);
     }
 
+    public void remove(int index) {
+        TransactionManager.removeTransactions(mList.remove(index).getId());
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         Transaction mTransaction;

@@ -119,9 +119,24 @@ public class TransactionTab extends Fragment {
             getContext());
 
         transactionRecyclerView.setAdapter(transactionAdapter);
-        ItemTouchHelper.Callback callback = new SwipeHelper(transactionAdapter);
+
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int index = viewHolder.getAdapterPosition();
+                if (direction == ItemTouchHelper.RIGHT) {
+                    transactionAdapter.remove(index);
+                    updateRange();
+                }
+            }
+        };
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(transactionRecyclerView);
+
         return v;
     }
 

@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class TransactionManager {
 
-    static ArrayList<Transaction> income;
-    static ArrayList<Transaction> expense;
     static DatabaseHelper db;
     static Context appInfo;
 
@@ -32,6 +30,9 @@ public class TransactionManager {
 
     }
 
+    public static void removeTransactions(int id) {
+        db.deleteData(id);
+    }
 
 
 }
