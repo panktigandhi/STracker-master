@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:hint="Enter Amount"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
