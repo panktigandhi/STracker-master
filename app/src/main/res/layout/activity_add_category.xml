@@ -85,8 +85,6 @@
         android:id="@+id/radioButtonIncome" />
     <RadioButton
         android:text="Expense"
-        android:gravity="center"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/radioButtonExpense" />

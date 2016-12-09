@@ -1,116 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin"
-    android:layout_height="match_parent">
+    android:padding="5dp">
 
     <ImageButton
-        android:layout_margin="15dp"
+        android:id="@+id/imageButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_add_white_36dp"
-        android:background="@drawable/circle"
-        android:id="@+id/imageButton"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_margin="15dp"
+        android:background="@drawable/circle"
+        android:src="@drawable/ic_add_white_36dp" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/linearlayout"
-    android:weightSum="2">
-
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:focusableInTouchMode="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/summary_begin_date" />
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <EditText
+            android:id="@+id/summary_begin_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:inputType="date" />
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:gravity="center"
-        android:clickable="true"
-        android:focusableInTouchMode="false"
-        android:layout_weight="1"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/summary_end_date" />
+        <EditText
+            android:id="@+id/summary_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:clickable="true"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:inputType="date" />
 
-</LinearLayout>
+    </LinearLayout>
 
-    <TextView
-        android:text="Total Income"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_below="@id/linearlayout"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:id="@+id/summary_income_text" />
+    <TableLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linearlayout"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:text="Income Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summary_income_value"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="#008000"
-        android:layout_below="@+id/linearlayout"
-        android:layout_alignParentRight="true" />
+        <TableRow
+            android:layout_width="match_parent">
 
-    <TextView
-        android:text="Total Expense"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_below="@+id/summary_income_text"
-        android:layout_alignParentStart="true"
-        android:id="@+id/summary_expense_text" />
+            <LinearLayout
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:background="@color/colorTranslucentGray"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/summary_totals_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Overview"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/summary_totals_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Totals Value"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:elevation="12dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/colorTranslucentGreen"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/summary_income_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Income"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/summary_income_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Income Value"
+                    android:textColor="#008000"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/colorTranslucentRed"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/summary_expense_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Expense"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/summary_expense_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expenses Value"
+                    android:textColor="#AF002A"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
 
-    <TextView
-        android:text="Expenses Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:textColor="#AF002A"
-        android:textStyle="bold"
-        android:id="@+id/summary_expense_value"
-        android:layout_below="@+id/summary_income_value"
-        android:layout_alignParentRight="true" />
+        </TableRow>
 
-
-    <TextView
-        android:text="Sum Result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:textStyle="bold"
-        android:layout_below="@+id/summary_expense_text"
-        android:layout_alignParentStart="true"
-        android:id="@+id/summary_totals_text" />
-
-    <TextView
-        android:text="Totals Value"
-        android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/summary_totals_value"
-        android:layout_below="@+id/summary_expense_value"
-        android:layout_alignParentRight="true"/>
-
+    </TableLayout>
 </RelativeLayout>
