@@ -18,10 +18,10 @@ import java.io.ByteArrayOutputStream;
 
 public class AddCategory extends AppCompatActivity {
     DatabaseHelper mydb;
-    EditText editcategoryname;
+    EditText editCategoryName;
     ImageView imageView;
     final Context context = this;
-    String categoryType;
+    String categoryType = "";
     private RadioGroup radioGroup2;
     public ByteArrayOutputStream bos;
     public Bitmap bitmap;
@@ -91,7 +91,7 @@ public class AddCategory extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.imageview);
         imageView.setImageResource(R.drawable.general);
-        editcategoryname = (EditText) findViewById(R.id.edittext_categoryname);
+        editCategoryName = (EditText) findViewById(R.id.edittext_categoryname);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,16 +113,23 @@ public class AddCategory extends AppCompatActivity {
     }
 
     public void addCategory() {
-        // CategoryManager.getCategories();
+
+        if (editCategoryName.getText().toString().trim().isEmpty() || categoryType.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         bos = new ByteArrayOutputStream();
         bitmap = BitmapFactory.decodeResource(getResources(), mThumbIds[imageposition]);
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        boolean isInserted = mydb.insertCategory(bos.toByteArray(), editcategoryname.getText().toString(), categoryType);
-        if (isInserted == true)
+        boolean isInserted = mydb.insertCategory(bos.toByteArray(), editCategoryName.getText().toString(), categoryType);
+        if (isInserted == true) {
             Toast.makeText(getApplicationContext(), "Insert Success", Toast.LENGTH_LONG).show();
-        else
+            finish();
+        } else {
             Toast.makeText(getApplicationContext(), "Insert Fail", Toast.LENGTH_LONG).show();
-        finish();
+        }
+
     }
 
     @Override
@@ -138,7 +145,6 @@ public class AddCategory extends AppCompatActivity {
 
         if (id == R.id.menu_add) {
             addCategory();
-            finish();
         }
 
         return super.onOptionsItemSelected(item);
