@@ -16,5 +16,5 @@ Spending Tracker is a simple, user friendly and hassle free app that lets you re
 
 **Demo**:
 
-![Spending Tracker Demo](https://user-images.githubusercontent.com/22808680/67154207-f4fc8f80-f2ac-11e9-8101-07600daadd85.gif)
+![Spending Tracker Demo](https://user-images.githubusercontent.com/22808680/67154237-a26fa300-f2ad-11e9-9724-7e759bac6375.gif)
 
