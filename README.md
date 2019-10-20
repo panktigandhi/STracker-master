@@ -1,6 +1,6 @@
 Spending Tracker is a simple, user friendly and hassle free app that lets you record your income and expenses so that you can stay on top of your finances. 
 
-Features:
+**Features:**
 1) Simple and intuitive user interface
 - Easily track your current spending habits
 - Add/Edit/Delete Income and Expenses
@@ -14,4 +14,7 @@ Features:
 - Easily add categories for income or expenses
 - Select a custom icon for the new category
 
-Beta Version: https://play.google.com/store/apps/details?id=calpoly.edu.stracker
+**Demo**:
+
+![Spending Tracker Demo](https://user-images.githubusercontent.com/22808680/67154207-f4fc8f80-f2ac-11e9-8101-07600daadd85.gif)
+
